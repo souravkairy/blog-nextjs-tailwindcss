@@ -1,11 +1,11 @@
 import React from 'react'
 
-const SinglePostPage = () => {
+const Messages = () => {
     return (
         <div>
-            
+            All Messages
         </div>
     )
 }
 
-export default SinglePostPage
+export default Messages

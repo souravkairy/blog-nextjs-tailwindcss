@@ -1,13 +1,12 @@
 import React from 'react'
 import DashboardLayout from '../../components/dashboard/dashboard-layout'
-import AddPostPage from '../../components/dashboard/post-page/AddPost'
+import MessagesList from '../../components/dashboard/message-page/Messages'
 
-const AddPost = () => {
+const Messages = () => {
     return (
         <DashboardLayout>
-           <AddPostPage/>
+           <MessagesList/>
         </DashboardLayout>
     )
 }
-
-export default AddPost 
+export default Messages

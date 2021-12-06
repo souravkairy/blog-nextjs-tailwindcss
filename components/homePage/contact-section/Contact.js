@@ -1,38 +1,39 @@
 import React from 'react'
 import { MailIcon, PhoneIcon } from '@heroicons/react/outline'
 
-
-const contact = () => {
+const contact = ({content}) => {
     return (
-        <div className="bg-white max-w-7xl mx-auto py-10 px-5 md:px-10">
+        <div className="bg-white max-w-7xl mx-auto py-10 px-5 md:px-10" id="contact">
             <div className="max-w-7xl mx-auto flex flex-wrap rounded-lg border">
                 <div className="bg-purple-50 py-10 px-5 sm:px-10 w-full md:w-1/2 ">
                     <div className="">
-                        <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">Get in touch</h2>
+                        <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">{content.heading}</h2>
                         <p className="mt-3 text-lg leading-6 text-gray-500">
-                            Nullam risus blandit ac aliquam justo ipsum. Quam mauris volutpat massa dictumst amet. Sapien tortor lacus
-                            arcu.
+                        {content.sub_heading}
                         </p>
                         <dl className="mt-8 text-base text-gray-500">
                             <div>
-                                <dt className="sr-only">Postal address</dt>
+                                {/* <dt className="sr-only">Postal address</dt> */}
                                 <dd>
-                                    <p>742 Evergreen Terrace</p>
-                                    <p>Springfield, OR 12345</p>
+                                    <p>
+
+                                    {content.address}
+                                    </p>
+                                    {/* <p>Springfield, OR 12345</p> */}
                                 </dd>
                             </div>
                             <div className="mt-6">
                                 <dt className="sr-only">Phone number</dt>
                                 <dd className="flex">
                                     <PhoneIcon className="flex-shrink-0 h-6 w-6 text-gray-400" aria-hidden="true" />
-                                    <span className="ml-3">+1 (555) 123-4567</span>
+                                    <span className="ml-3">{content.mobile_number}</span>
                                 </dd>
                             </div>
                             <div className="mt-3">
                                 <dt className="sr-only">Email</dt>
                                 <dd className="flex">
                                     <MailIcon className="flex-shrink-0 h-6 w-6 text-gray-400" aria-hidden="true" />
-                                    <span className="ml-3">support@example.com</span>
+                                    <span className="ml-3">{content.email}</span>
                                 </dd>
                             </div>
                         </dl>

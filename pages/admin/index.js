@@ -1,5 +1,5 @@
 import React from 'react'
-import LoginPage from './login-page/index'
+import LoginPage from '../../components/dashboard/login-page'
 
 const login = () => {
     return (
@@ -10,3 +10,4 @@ const login = () => {
 }
 
 export default login
+ 

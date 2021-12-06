@@ -1,15 +1,20 @@
 import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
-import { HomeIcon, MenuAlt1Icon, ViewListIcon, XIcon, } from '@heroicons/react/outline'
-import { DotsVerticalIcon, SearchIcon } from '@heroicons/react/solid'
+import { MenuAlt1Icon, ViewListIcon, XIcon, } from '@heroicons/react/outline'
+import HomeRegular from '../../../public/icon-components/HomeRegular'
+import ThListSolid from '../../../public/icon-components/ThListSolid'
+import InboxInSolid from '../../../public/icon-components/InboxInSolid'
+import StreamSolid from '../../../public/icon-components/StreamSolid'
+import CogsSolid from '../../../public/icon-components/CogsSolid'
+import { SearchIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 const navigation = [
-    { name: 'Home', href: 'dashboard', icon: HomeIcon, current: true, },
-    { name: 'All Post', href: 'posts', icon: ViewListIcon, current: false, },
-    { name: 'Portfolio', href: 'portfolio', icon: ViewListIcon, current: false, },
-    { name: 'Settings', href: 'settings', icon: DotsVerticalIcon, current: false, },
-    { name: 'Messages', href: 'messages', icon: MenuAlt1Icon, current: false, },
+    { name: 'Home', href: 'dashboard', icon: <HomeRegular />, current: true },
+    { name: 'All Post', href: 'posts', icon: <ThListSolid />, current: false, },
+    { name: 'Portfolio', href: 'portfolio', icon: <StreamSolid />, current: false, },
+    { name: 'Settings', href: 'settings', icon: <CogsSolid />, current: false, },
+    { name: 'Messages', href: 'messages', icon: <InboxInSolid />, current: false, },
 ]
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -85,13 +90,10 @@ const DashboardLayout = ({ children }) => {
                                                     )}
                                                     aria-current={item.current ? 'page' : undefined}
                                                 >
-                                                    <item.icon
-                                                        className={classNames(
-                                                            '/admin/' + item.href === slug ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                                                            'mr-3 flex-shrink-0 h-6 w-6'
-                                                        )}
-                                                        aria-hidden="true"
-                                                    />
+                                                    <p className={classNames(
+                                                        '/admin/' + item.href === slug ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
+                                                        'group flex items-center px-2 py-0.5 text-sm font-medium rounded-md'
+                                                    )}>{item.icon}</p>
                                                     {item.name}
                                                 </a>
                                             </Link>
@@ -127,13 +129,11 @@ const DashboardLayout = ({ children }) => {
                                         )}
                                         aria-current={item.current ? 'page' : undefined}
                                     >
-                                        <item.icon
-                                            className={classNames(
-                                                '/admin/' + item.href === slug ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                                                'mr-3 flex-shrink-0 h-6 w-6'
-                                            )}
-                                            aria-hidden="true"
-                                        />
+                                        <p className={classNames(
+                                            '/admin/' + item.href === slug ? 'bg-gray-200 text-gray-900' : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50',
+                                            'group flex items-center px-2 py-0.5 text-sm font-medium rounded-md'
+                                        )}>{item.icon}</p>
+
                                         {item.name}
                                     </a>
                                 </Link>
@@ -193,10 +193,17 @@ const DashboardLayout = ({ children }) => {
                         <div className="min-w-0">
                             {/* <h1 className="text-lg font-medium leading-6 text-gray-900 sm:truncate">Admin-Dashboard</h1> */}
                         </div>
-                        <div className="md:ml-4">
+                        <div className="md:ml-4 flex">
+                            <div className="mt-1 mr-3 text-gray-900">
+                                <Link href="/">
+                                    <a>
+                                        <HomeRegular />
+                                    </a>
+                                </Link>
+                            </div>
                             <button
                                 type="button"
-                                className="px-4 py-1 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 sm:order-0 sm:ml-0"
+                                className="px-4 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 sm:order-0 sm:ml-0"
                             >
                                 Logout
                             </button>

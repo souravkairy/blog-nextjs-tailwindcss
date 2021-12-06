@@ -1,6 +1,6 @@
 import React from 'react'
-import DashboardLayout from './dashboard-layout'
-import Posts from './post-page/posts-page'
+import DashboardLayout from '../../components/dashboard/dashboard-layout'
+import Posts from '../../components/dashboard/post-page/Posts'
 
 const AllPost = ({posts}) => {
     return (
@@ -14,11 +14,11 @@ const AllPost = ({posts}) => {
 export default AllPost
 
 export async function getStaticProps() {
-  const res = await fetch('http://127.0.0.1:8000/api/all-post')
+  const res = await fetch('http://127.0.0.1:8000/api/posts')
   const posts = await res.json()
   return {
     props: {
       posts,
     },
-  }
+  } 
 }
