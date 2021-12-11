@@ -24,11 +24,11 @@ const index = ({ posts, heroSectionData, portfolioSectionData, ctaData, contactI
           images: { url: 'https://www.example.ie/og-image-03.jpg' },
           site_name: 'SiteName',
         }}
-        twitter={{
-          handle: '@handle',
-          site: '@site',
-          cardType: 'summary_large_image',
-        }}
+        // twitter={{
+        //   handle: '@handle',
+        //   site: '@site',
+        //   cardType: 'summary_large_image',
+        // }}
       />
       <ScrollToTop smooth color="#6f00ff" className="bg-white shadow-lg fixed right-7 bottom-7 p-3 text-white z-50 cursor-pointer rounded-lg w-14 h-14 
       transition ease-in-out duration-700 outline-none"/>

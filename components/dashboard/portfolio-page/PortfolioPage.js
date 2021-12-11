@@ -3,11 +3,9 @@ import axios from 'axios';
 import { ApiUrl } from "../../../config/ApiConfig";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useRouter } from 'next/router'
 
 
 const PortfolioPage = ({ contents, onCreated, onDeleted }) => {
-    const router = useRouter()
     const {
         register,
         handleSubmit,

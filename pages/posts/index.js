@@ -3,18 +3,21 @@ import Header from '../../components/homePage/common-section/header'
 import Footer from '../../components/homePage/common-section/footer'
 import BlogPost from '../../components/homePage/posts/Posts'
 import axios from 'axios'
+import { NextSeo } from 'next-seo'
 
 const index = ({ posts }) => {
     return (
-        <div className="bg-white overflow-hidden">
-            <div className="max-w-7xl mx-auto border-b-0 md:border-b">
-                <div className="relative z-10 pb-6 bg-white lg:max-w-2xl lg:w-full">
-                    <Header />
+        <>
+            <div className="bg-white overflow-hidden">
+                <div className="max-w-7xl mx-auto border-b-0 md:border-b">
+                    <div className="relative z-10 pb-6 bg-white lg:max-w-2xl lg:w-full">
+                        <Header />
+                    </div>
                 </div>
+                <BlogPost posts={posts} />
+                <Footer />
             </div>
-            <BlogPost posts={posts} />
-            <Footer />
-        </div>
+        </>
     )
 }
 

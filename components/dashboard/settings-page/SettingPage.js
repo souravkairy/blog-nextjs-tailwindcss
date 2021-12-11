@@ -1,5 +1,9 @@
 import React from 'react'
-import { MailIcon } from '@heroicons/react/solid'
+import { useForm } from "react-hook-form";
+import axios from 'axios';
+import { ApiUrl } from "../../../config/ApiConfig";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const people = [
     {
         name: 'Active Post',
@@ -11,8 +15,38 @@ const people = [
             'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
     },
 ]
-const SettingPage = ({heroContent}) => {
-    console.log(heroContent);
+const SettingPage = ({ heroContent, seoContent }) => {
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors }
+    } = useForm();
+    const seoDataSubmit = (data) => {
+        console.log(data);
+        const formData = new FormData();
+        formData.append('meta_title', data.meta_title);
+        formData.append('meta_description', data.meta_description);
+        formData.append('canonical_link', data.canonical_link);
+        formData.append('seo_image', data.seo_image[0]);
+        formData.append('site_name', data.site_name);
+
+        axios.post(ApiUrl + 'seo', formData, {
+            headers: {
+                'Content-Type': `multipart/form-data`
+            }
+        })
+            .then(res => res.data)
+            .then(({ message, seo }) => {
+                reset()
+                toast.success(message)
+                // onCreated(portfolio)
+            })
+            .catch(err => {
+                err.response.data && toast.success(err.response.data.message)
+                console.log(err.response.data);
+            });
+    };
     return (
         <>
             <div className="flex space-x-10 my-5">
@@ -184,6 +218,103 @@ const SettingPage = ({heroContent}) => {
                                     <div className="flex">
                                         <h1 className="mr-4 text-sm flex py-1">Linkedin : </h1>
                                         <button className="py-1 px-4 border rounded-lg text-sm ">http://souravkaisdsddsdry.me</button>
+                                    </div>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+            <hr />
+            <div className="flex space-x-10 my-5">
+                <div className="w-full md:w-1/2">
+                    <h3 className="mb-3 text-lg font-semibold">SEO Setting</h3>
+                    <div className="">
+                        <form onSubmit={handleSubmit(seoDataSubmit)} className="grid grid-cols-1 gap-y-3">
+                            <div>
+                                <input
+                                    id="meta_title"
+                                    type="text"
+                                    className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    placeholder="Meta title"
+                                    {...register("meta_title")}
+                                />
+                            </div>
+                            <div>
+                                <textarea
+                                    rows={4}
+                                    id="meta_description"
+                                    type="text"
+                                    className="block w-full shadow-sm py-1 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    placeholder="Meta Description"
+                                    {...register("meta_description")}
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    id="canonical_link"
+                                    type="text"
+                                    className="block w-full shadow-sm py-1 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    placeholder="Canonical"
+                                    {...register("canonical_link")}
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    id="seo_image"
+                                    type="file"
+                                    className="block w-full shadow-sm py-1 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    placeholder="SEO Image"
+                                    {...register("seo_image")}
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    id="site_name"
+                                    type="text"
+                                    className="block w-full shadow-sm py-1 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    placeholder="Site Name"
+                                    {...register("site_name")}
+                                />
+
+                            </div>
+                            <div>
+                                <button
+                                    type="submit"
+                                    className="inline-flex justify-center py-1 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 w-full"
+                                >
+                                    Save
+                                </button>
+                                <ToastContainer />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div className="w-full md:w-1/2">
+                    <h3 className="mb-3 text-lg font-semibold">Existing Contents</h3>
+                    <ul role="list" className="space-y-4">
+                        {seoContent.map((content) => (
+                            <li key={content.id} className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
+                                <div className="w-full p-6 space-y-3">
+                                    <div className="flex justify-between">
+                                        <h1 className="mr-4 text-sm flex py-1">Meta Title: </h1>
+                                        <button className="py-1 px-4 border rounded-lg text-sm ">{content.meta_title}</button>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <h1 className="mr-4 text-sm flex py-1">Meta Description : </h1>
+                                        <button className="py-1 px-4 border rounded-lg text-sm text-left">{content.meta_description}</button>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <h1 className="mr-4 text-sm flex py-1">Canonical Link : </h1>
+                                        <button className="py-1 px-4 border rounded-lg text-sm ">{content.canonical_link}</button>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <h1 className="mr-4 text-sm flex py-1">Seo Image : </h1>
+                                        <img src={content.image_url} alt="" className='w-1/3 bg-gray-300 rounded-lg flex-shrink-0' />
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <h1 className="mr-4 text-sm flex py-1">Site Name : </h1>
+                                        <button className="py-1 px-4 border rounded-lg text-sm ">{content.site_name}</button>
                                     </div>
                                 </div>
                             </li>
