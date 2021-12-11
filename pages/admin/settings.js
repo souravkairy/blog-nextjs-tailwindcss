@@ -1,6 +1,8 @@
+import axios from 'axios'
 import React from 'react'
 import DashboardPage from '../../components/dashboard/dashboard-layout'
 import SettingPage from '../../components/dashboard/settings-page/SettingPage'
+import { ApiUrl } from '../../config/ApiConfig'
 
 const settings = ({ heroSectiondata }) => {
     return (
@@ -14,11 +16,19 @@ const settings = ({ heroSectiondata }) => {
 export default settings
 
 export async function getStaticProps() {
-    const res = await fetch('http://127.0.0.1:8000/api/hero-section')
-    const response1 = await res.json()
-    return {
-        props: {
-            heroSectiondata: response1,
-        },
+    try {
+        const res = await axios.get(ApiUrl + 'hero');
+        const heroSectiondata = res.data;
+        return {
+            props: {
+                heroSectiondata,
+            },
+        }
+    } catch (error) {
+        return {
+            props: {
+                error: '',
+            },
+        };
     }
 }

@@ -1,7 +1,33 @@
 import React from 'react'
 import { MailIcon, PhoneIcon } from '@heroicons/react/outline'
+import { useForm } from "react-hook-form";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { ApiUrl } from '../../../config/ApiConfig';
+import axios from 'axios';
 
-const contact = ({content}) => {
+const contact = ({ content }) => {
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors }
+    } = useForm();
+    const onSubmit = (data) => {
+        const options = {
+            method: 'POST',
+            url: ApiUrl + 'message',
+            headers: { 'Content-Type': 'application/json' },
+            data: data
+        };
+        axios.request(options).then(function (response) {
+            console.log(response.data);
+            reset()
+            toast.success("Message send successfully")
+        }).catch(function (error) {
+            console.error(error);
+        });
+    };
     return (
         <div className="bg-white max-w-7xl mx-auto py-10 px-5 md:px-10" id="contact">
             <div className="max-w-7xl mx-auto flex flex-wrap rounded-lg border">
@@ -9,7 +35,7 @@ const contact = ({content}) => {
                     <div className="">
                         <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">{content.heading}</h2>
                         <p className="mt-3 text-lg leading-6 text-gray-500">
-                        {content.sub_heading}
+                            {content.sub_heading}
                         </p>
                         <dl className="mt-8 text-base text-gray-500">
                             <div>
@@ -17,7 +43,7 @@ const contact = ({content}) => {
                                 <dd>
                                     <p>
 
-                                    {content.address}
+                                        {content.address}
                                     </p>
                                     {/* <p>Springfield, OR 12345</p> */}
                                 </dd>
@@ -48,18 +74,18 @@ const contact = ({content}) => {
                 </div>
                 <div className="bg-white py-10 px-5 sm:px-10 w-full md:w-1/2 my-2">
                     <div className="max-w-lg mx-auto lg:max-w-none">
-                        <form action="#" method="POST" className="grid grid-cols-1 gap-y-6">
+                        <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-y-6">
                             <div>
                                 <label htmlFor="full-name" className="sr-only">
                                     Full name
                                 </label>
                                 <input
                                     type="text"
-                                    name="full-name"
                                     id="full-name"
                                     autoComplete="name"
                                     className="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
-                                    placeholder="Full name"
+                                    placeholder="Name"
+                                    {...register("name")}
                                 />
                             </div>
                             <div>
@@ -68,12 +94,12 @@ const contact = ({content}) => {
                                 </label>
                                 <input
                                     id="email"
-                                    name="email"
                                     type="email"
-                                    autoComplete="email"
                                     className="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="Email"
+                                    {...register("email", { required: true })}
                                 />
+                                {errors.email && <p className="text-red-600 text-xs">This field is required</p>}
                             </div>
                             <div>
                                 <label htmlFor="phone" className="sr-only">
@@ -81,11 +107,10 @@ const contact = ({content}) => {
                                 </label>
                                 <input
                                     type="text"
-                                    name="phone"
                                     id="phone"
-                                    autoComplete="tel"
                                     className="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="Phone"
+                                    {...register("phone")}
                                 />
                             </div>
                             <div>
@@ -98,8 +123,9 @@ const contact = ({content}) => {
                                     rows={4}
                                     className="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="Message"
-                                    defaultValue={''}
+                                    {...register("message", { required: true })}
                                 />
+                                {errors.message && <p className="text-red-600 text-xs">This field is required</p>}
                             </div>
                             <div>
                                 <button
@@ -108,6 +134,7 @@ const contact = ({content}) => {
                                 >
                                     Submit
                                 </button>
+                                <ToastContainer />
                             </div>
                         </form>
                     </div>

@@ -5,9 +5,9 @@ import { useRouter } from 'next/router'
 const AllPost = ({ posts }) => {
     const router = useRouter();
     const slug = router.pathname;
-    const [count, setCount] = useState(3)
+    const [count, setCount] = useState('')
     useEffect(() => {
-        slug === '/posts' ? setCount(15) : setCount(3)
+        slug === '/posts' ? setCount(10) : setCount(4)
     }, [setCount])
     return (
         <>
@@ -23,12 +23,12 @@ const AllPost = ({ posts }) => {
                             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero labore natus atque, ducimus sed.
                         </p>
                     </div>
-                    <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
-                        {posts.slice(0, count)?.map((post) => (
+                    <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-4 lg:max-w-none">
+                        {posts?.slice(0, count)?.map((post) => (
                             <Link href={'/posts/' + post.id} >
                                 <div key={post.id} className="flex flex-col rounded-lg shadow-lg overflow-hidden cursor-pointer">
                                     <div className="flex-shrink-0">
-                                        <img className="h-48 w-full object-cover" src={`http://127.0.0.1:8000/${post.image}`} alt="" />
+                                        <img className="h-48 w-full object-cover" src={post.image_url} alt="" />
                                     </div>
                                     <div className="flex-1 bg-white p-6 flex flex-col justify-between">
                                         <div className="flex-1">
@@ -41,7 +41,7 @@ const AllPost = ({ posts }) => {
                                             <div className="flex-shrink-0">
                                                 <a href={post.author.href}>
                                                     <span className="sr-only">{post.author}</span>
-                                                    <img className="h-10 w-10 rounded-full" src={`http://127.0.0.1:8000/${post.image}`} alt="" />
+                                                    <img className="h-10 w-10 rounded-full" src={post.image_url} alt="" />
                                                 </a>
                                             </div>
                                             <div className="ml-3">
@@ -74,7 +74,6 @@ const AllPost = ({ posts }) => {
                                 </Link>
                             </div>
                     }
-
                 </div>
             </div>
         </>

@@ -1,1 +1,1 @@
-export { default as CogsSolid } from "./CogsSolid";
+export { default as EditRegular } from "./EditRegular";

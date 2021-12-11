@@ -1,6 +1,31 @@
 import React from 'react'
+import { useForm } from "react-hook-form";
+import axios from 'axios';
 
 const LoginPage = () => {
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors }
+    } = useForm();
+    const onSubmit = (data) => {
+        console.log(data);
+        
+        // const options = {
+        //     method: 'POST',
+        //     url: ApiUrl + 'message',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     data: data
+        // };
+        // axios.request(options).then(function (response) {
+        //     console.log(response.data);
+        //     reset()
+        //     toast.success("Message send successfully")
+        // }).catch(function (error) {
+        //     console.error(error);
+        // });
+    };
     return (
         <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -9,7 +34,7 @@ const LoginPage = () => {
 
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-                    <form className="space-y-6" action="#" method="POST">
+                    <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                                 Email address
@@ -17,12 +42,11 @@ const LoginPage = () => {
                             <div className="mt-1">
                                 <input
                                     id="email"
-                                    name="email"
-                                    // type="email"
-                                    autoComplete="email"
+                                    type="email"
                                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    {...register("email", { required: true })}
                                 />
-                                <p className="text-sm text-red-600">error</p>
+                                {errors.email && <p className="text-red-600 text-xs">This field is required</p>}
                             </div>
                         </div>
 
@@ -33,12 +57,12 @@ const LoginPage = () => {
                             <div className="mt-1">
                                 <input
                                     id="password"
-                                    name="password"
-                                    // type="password"
-                                    autoComplete="current-password"
+                                    type="password"
                                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                    {...register("password", { required: true })}
                                 />
-                                <p className="text-sm text-red-600">error</p>
+                                {errors.password && <p className="text-red-600 text-xs">This field is required</p>}
+
                             </div>
                         </div>
 

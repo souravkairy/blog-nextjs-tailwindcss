@@ -1,5 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
+import SvgThumbsDownLight from '../../../public/icon-components/ThumbsDownLight'
+import SvgThumbsUpLight from '../../../public/icon-components/ThumbsUpLight'
+import SvgTrashRegular from '../../../public/icon-components/TrashRegular'
+import SvgEyeRegular from '../../../public/icon-components/EyeRegular'
+import SvgEditRegular from '../../../public/icon-components/EditRegular'
 
 const Posts = ({ posts }) => {
     return (
@@ -61,7 +66,7 @@ const Posts = ({ posts }) => {
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <div className="flex items-center">
                                                         <div className="flex-shrink-0 h-10 w-10">
-                                                            <img className="h-10 w-10 rounded-full" src={`http://127.0.0.1:8000/${post.image}`} alt="" />
+                                                            <img className="h-10 w-10 rounded-full" src={post.image_url} alt="" />
                                                         </div>
                                                         <div className="ml-4">
                                                             <div className="text-sm font-medium text-gray-900">{post.author}</div>
@@ -78,21 +83,25 @@ const Posts = ({ posts }) => {
                                                         Active
                                                     </span>
                                                 </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                                                    <button className="border p-1 rounded-lg hover:bg-gray-100 text-green-700 bg-green-100 border-green-200">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
-                                                        </svg>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-1">
+                                                    {
+                                                        post.status === 1 ?
+                                                            <button className="border p-1.5 rounded-lg hover:bg-gray-100 text-red-500 bg-red-100 border-red-200" title="de-Active">
+                                                                <SvgThumbsDownLight />
+                                                            </button>
+                                                            :
+                                                            <button className="border p-1.5 rounded-lg hover:bg-gray-100 text-green-700 bg-green-100 border-green-200" title="Active">
+                                                                <SvgThumbsUpLight />
+                                                            </button>
+                                                    }
+                                                    <button className="border p-1.5 rounded-lg hover:bg-gray-100 text-green-500 bg-green-100 border-green-200" title="View">
+                                                        <SvgEyeRegular />
                                                     </button>
-                                                    <button className="border p-1 rounded-lg hover:bg-gray-100 text-red-500 bg-red-100 border-red-200">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06l3.76.94m-7 10v5a2 2 0 002 2h.096c.5 0 .905-.405.905-.904 0-.715.211-1.413.608-2.008L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5" />
-                                                        </svg>
+                                                    <button className="border p-1.5 rounded-lg hover:bg-gray-100 text-yellow-500 bg-yellow-100 border-yellow-200" title="Edit Post">
+                                                        <SvgEditRegular />
                                                     </button>
-                                                    <button className="border p-1 rounded-lg hover:bg-gray-100 text-red-500 bg-red-100 border-red-200">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                        </svg>
+                                                    <button className="border p-1.5 rounded-lg hover:bg-gray-100 text-red-500 bg-red-100 border-red-200" title="Trash">
+                                                        <SvgTrashRegular />
                                                     </button>
                                                 </td>
                                             </tr>

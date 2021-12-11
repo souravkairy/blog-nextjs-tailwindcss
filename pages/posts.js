@@ -1,10 +1,11 @@
+import axios from 'axios';
 import React from 'react'
-import Header from '../../components/homePage/common-section/header'
-import Footer from '../../components/homePage/common-section/footer'
-import BlogPost from '../../components/homePage/posts/Posts'
-import axios from 'axios'
+import AllPost from '../components/homePage/posts/Posts';
+import { ApiUrl } from '../config/ApiConfig';
+import Header from '../components/homePage/common-section/header';
+import Footer from '../components/homePage/common-section/footer';
 
-const index = ({ posts }) => {
+const posts = ({ posts }) => {
     return (
         <div className="bg-white overflow-hidden">
             <div className="max-w-7xl mx-auto border-b-0 md:border-b">
@@ -12,17 +13,17 @@ const index = ({ posts }) => {
                     <Header />
                 </div>
             </div>
-            <BlogPost posts={posts} />
+            <AllPost posts={posts} />
             <Footer />
         </div>
     )
 }
+export default posts
 
-export default index
 export async function getStaticProps() {
     try {
-        const res = await axios.get(ApiUrl + 'posts');
-        const posts = res.data;
+        const res1 = await axios.get(ApiUrl + 'posts');
+        const posts = res1.data;
         return {
             props: {
                 posts,

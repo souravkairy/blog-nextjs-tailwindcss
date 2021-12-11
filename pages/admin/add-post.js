@@ -9,5 +9,4 @@ const AddPost = () => {
         </DashboardLayout>
     )
 }
-
 export default AddPost 

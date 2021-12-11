@@ -1,6 +1,8 @@
 import { CameraIcon } from '@heroicons/react/solid'
 import Header from '../../components/homePage/common-section/header'
 import Footer from '../../components/homePage/common-section/footer'
+import axios from 'axios';
+import { ApiUrl } from '../../config/ApiConfig';
 
 const SinglePost = ({ post }) => {
     console.log(post);
@@ -52,7 +54,7 @@ const SinglePost = ({ post }) => {
                                 <div className="aspect-w-12 aspect-h-7 lg:aspect-none">
                                     <img
                                         className="rounded-lg shadow-lg object-cover object-center"
-                                        src={`http://127.0.0.1:8000/${post.image}`}
+                                        src={post.image_url}
                                         alt="Whitney leaning against a railing on a downtown street"
                                         width={1184}
                                         height={1376}
@@ -78,9 +80,17 @@ const SinglePost = ({ post }) => {
 export default SinglePost
 
 SinglePost.getInitialProps = async ({ query }) => {
-    const res = await fetch(`http://127.0.0.1:8000/api/posts/${query.id}`)
-    const post = await res.json()
-    return {
-        post
+    try {
+        const res = await axios.get(ApiUrl + `posts/${query.id}`);
+        const post = res.data;
+        return {
+            post,
+        }
+    } catch (error) {
+        return {
+            props: {
+                error: '',
+            },
+        };
     }
 }

@@ -1,6 +1,8 @@
+import axios from 'axios'
 import React from 'react'
 import DashboardLayout from '../../components/dashboard/dashboard-layout'
 import Dashboard from '../../components/dashboard/dashboard-layout/DashboardPage'
+import { ApiUrl } from '../../config/ApiConfig'
 
 const dashboard = ({ posts, portfolioSectionData }) => {
     return (
@@ -14,18 +16,25 @@ const dashboard = ({ posts, portfolioSectionData }) => {
 export default dashboard
 
 export async function getStaticProps() {
-    const res1 = await fetch('http://127.0.0.1:8000/api/posts')
-    const res3 = await fetch('http://127.0.0.1:8000/api/portfolios')
-    const res5 = await fetch('http://127.0.0.1:8000/api/get-contact-section')
-    const posts = await res1.json()
-    const portfolioSectionData = await res3.json()
-    const contactInfo = await res5.json()
-
-    return {
-        props: {
-            posts,
-            portfolioSectionData,
-            contactInfo
-        },
+    try {
+        const res1 = await axios.get(ApiUrl + 'posts');
+        const res3 = await axios.get(ApiUrl + 'portfolios');
+        const res5 = await axios.get(ApiUrl + 'contact-info');
+        const posts = res1.data;
+        const portfolioSectionData = res3.data;
+        const contactInfo = res5.data;
+        return {
+            props: {
+                posts,
+                portfolioSectionData,
+                contactInfo
+            },
+        }
+    } catch (error) {
+        return {
+            props: {
+                error: '',
+            },
+        };
     }
 }

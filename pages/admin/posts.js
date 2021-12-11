@@ -1,24 +1,34 @@
 import React from 'react'
 import DashboardLayout from '../../components/dashboard/dashboard-layout'
 import Posts from '../../components/dashboard/post-page/Posts'
+import { ApiUrl } from '../../config/ApiConfig'
+import axios from 'axios'
 
-const AllPost = ({posts}) => {
-    return (
-        <>
-            <DashboardLayout>
-                <Posts posts={posts}/>
-            </DashboardLayout>
-        </>
-    )
+const AllPost = ({ posts }) => {
+  return (
+    <>
+      <DashboardLayout>
+        <Posts posts={posts} />
+      </DashboardLayout>
+    </>
+  )
 }
 export default AllPost
 
 export async function getStaticProps() {
-  const res = await fetch('http://127.0.0.1:8000/api/posts')
-  const posts = await res.json()
-  return {
-    props: {
-      posts,
-    },
-  } 
+  try {
+    const res = await axios.get(ApiUrl + 'posts');
+    const posts = res.data;
+    return {
+      props: {
+        posts,
+      },
+    }
+  } catch (error) {
+    return {
+      props: {
+        error: '',
+      },
+    };
+  }
 }

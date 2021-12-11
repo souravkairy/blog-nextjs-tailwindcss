@@ -18,10 +18,10 @@ const portfolio = ({ contents }) => {
                         {contents.map((data) => (
                             <li key={data.id} className="border px-3 py-5 rounded-lg hover:border-indigo-600 cursor-pointer hover:shadow-sm">
                                 <div className="space-y-4">
-                                    <img className="mx-auto h-20 w-20 rounded-full lg:w-24 lg:h-24" src={`http://127.0.0.1:8000/${data.image}`} alt="" />
+                                    <img className="mx-auto h-20 w-20 rounded-full lg:w-24 lg:h-24" src={data.image_url} alt="" />
                                     <div className="space-y-2">
                                         <div className="text-xs font-medium lg:text-sm">
-                                            <h3>{data.heading}</h3>
+                                            <h3>{data.heading}</h3>22
                                             <p className="text-indigo-600">{data.sub_heading}</p>
                                         </div>
                                     </div>
