@@ -15,7 +15,7 @@ const people = [
             'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
     },
 ]
-const SettingPage = ({ heroContent, seoContent }) => {
+const SettingPage = ({ heroContent, seoContent, onslCreated, linkContents, onCreated, onHsCreated }) => {
     const {
         register,
         handleSubmit,
@@ -23,7 +23,6 @@ const SettingPage = ({ heroContent, seoContent }) => {
         formState: { errors }
     } = useForm();
     const seoDataSubmit = (data) => {
-        console.log(data);
         const formData = new FormData();
         formData.append('meta_title', data.meta_title);
         formData.append('meta_description', data.meta_description);
@@ -40,7 +39,54 @@ const SettingPage = ({ heroContent, seoContent }) => {
             .then(({ message, seo }) => {
                 reset()
                 toast.success(message)
-                // onCreated(portfolio)
+                onCreated(seo)
+            })
+            .catch(err => {
+                err.response.data && toast.success(err.response.data.message)
+                console.log(err.response.data);
+            });
+    };
+    const SocialLinkDataSubmit = (data) => {
+        console.log(data);
+        const formData = new FormData();
+        formData.append('facebook', data.facebook);
+        formData.append('twitter', data.twitter);
+        formData.append('linkedin', data.linkedin);
+        axios.post(ApiUrl + 'social-link', formData, {
+            headers: {
+                'Content-Type': `multipart/form-data`
+            }
+        })
+            .then(res => res.data)
+            .then(({ message, links }) => {
+                reset()
+                toast.success(message)
+                onslCreated(links)
+            })
+            .catch(err => {
+                err.response.data && toast.success(err.response.data.message)
+                console.log(err.response.data);
+            });
+    };
+    const HeroDataSubmit = (data) => {
+        console.log(data.image);
+        const formData = new FormData();
+        formData.append('heading', data.heading);
+        formData.append('sub_heading', data.sub_heading);
+        formData.append('text', data.text);
+        formData.append('btn_link_one', data.btn_link_one);
+        formData.append('btn_link_two', data.btn_link_two);
+        formData.append('image', data.image[0]);
+        axios.post(ApiUrl + 'hero', formData, {
+            headers: {
+                'Content-Type': `multipart/form-data`
+            }
+        })
+            .then(res => res.data)
+            .then(({ message, hero }) => {
+                reset()
+                toast.success(message)
+                onHsCreated(hero)
             })
             .catch(err => {
                 err.response.data && toast.success(err.response.data.message)
@@ -53,45 +99,55 @@ const SettingPage = ({ heroContent, seoContent }) => {
                 <div className="w-full md:w-1/2">
                     <h3 className="mb-3 text-lg font-semibold">Hero Section Setting</h3>
                     <div className="">
-                        <form action="#" method="POST" className="grid grid-cols-1 gap-y-3">
+                        <form onSubmit={handleSubmit(HeroDataSubmit)} className="grid grid-cols-1 gap-y-3">
                             <div>
                                 <input
                                     type="text"
-                                    name="title"
                                     id="title"
-                                    className="block w-full shadow-sm py-1 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="Heading"
+                                    {...register("heading")}
                                 />
                             </div>
                             <div>
                                 <input
-                                    id="author"
-                                    name="author"
                                     type="text"
-                                    className="block w-full shadow-sm py-1 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="Sub-Heading"
+                                    {...register("sub_heading")}
+                                />
+                            </div>
+                            <div>
+                                <textarea
+                                    row={4}
+                                    type="text"
+                                    id="title"
+                                    className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    placeholder="Text"
+                                    {...register("text")}
                                 />
                             </div>
                             <div>
                                 <input
-                                    id="author"
-                                    name="author"
+                                    id="button_one"
                                     type="text"
-                                    className="block w-full shadow-sm py-1 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="Button Link-1"
+                                    {...register("btn_link_one")}
                                 />
                             </div>
                             <div>
                                 <input
-                                    id="author"
+                                    id="button_two"
                                     name="author"
                                     type="text"
-                                    className="block w-full shadow-sm py-1 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="Button Link-2"
+                                    {...register("btn_link_two")}
                                 />
                             </div>
                             <div>
-                                <div className="mt-1 flex justify-center px-6 py-1 border-2 border-gray-300 border-dashed rounded-md">
+                                <div className="mt-1 flex justify-center px-6 py-1.5 border-2 border-gray-300 border-dashed rounded-md">
                                     <div className="space-y-1 text-center">
                                         <svg
                                             className="mx-auto h-12 w-12 text-gray-400"
@@ -113,7 +169,8 @@ const SettingPage = ({ heroContent, seoContent }) => {
                                                 className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                                             >
                                                 <span>Upload blog image</span>
-                                                <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                                                <input id="file-upload" type="file" {...register("image")}
+                                                    className="sr-only" />
                                             </label>
                                             <p className="pl-1">or drag and drop</p>
                                         </div>
@@ -124,7 +181,7 @@ const SettingPage = ({ heroContent, seoContent }) => {
                             <div>
                                 <button
                                     type="submit"
-                                    className="inline-flex justify-center py-1 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 w-full"
+                                    className="inline-flex justify-center py-1.5 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 w-full"
                                 >
                                     Save
                                 </button>
@@ -135,25 +192,24 @@ const SettingPage = ({ heroContent, seoContent }) => {
                 <div className="w-full md:w-1/2">
                     <h3 className="mb-3 text-lg font-semibold">Existing Section</h3>
                     <ul role="list" className="space-y-4">
-                        {people.map((person) => (
-                            <li key={person.email} className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
-                                <div className="w-full p-6">
-                                    <img className="w-1/3 mx-auto bg-gray-300 rounded-lg flex-shrink-0" src={`http://127.0.0.1:8000/${heroContent.image}`} alt="" />
-                                    <div className="my-5">
-                                        <h3 className="text-gray-900 text-lg font-medium text-center">Syed Rezwanul Haque.</h3>
-                                        <p className="mt-1 text-gray-500 text-sm text-center">{heroContent.text}</p>
-                                    </div>
-                                    <div className="my-5 flex">
-                                        <h1 className="mr-4 text-sm flex py-1">Button-1 : </h1>
-                                        <button className="py-1 px-4 border rounded-lg text-sm ">{heroContent.btn_link_one}</button>
-                                    </div>
-                                    <div className="my-5 flex">
-                                        <h1 className="mr-4 text-sm flex py-1">Button-1 : </h1>
-                                        <button className="py-1 px-4 border rounded-lg text-sm ">{heroContent.btn_link_two}</button>
-                                    </div>
+                        <li key={heroContent.id} className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
+                            <div className="w-full p-6">
+                                <img className="w-1/3 mx-auto bg-gray-300 rounded-lg flex-shrink-0" src={heroContent.image_url} alt="" />
+                                <div className="my-5">
+                                    <h3 className="text-gray-900 text-lg font-medium text-center">{heroContent.heading}</h3>
+                                    <h3 className="text-gray-900 text-lg font-normal text-center">{heroContent.sub_heading}</h3>
+                                    <p className="mt-1 text-gray-500 text-sm text-center">{heroContent.text}</p>
                                 </div>
-                            </li>
-                        ))}
+                                <div className="my-5 flex">
+                                    <h1 className="mr-4 text-sm flex py-1.5">Button-1 : </h1>
+                                    <button className="py-1.5 px-4 border rounded-lg text-sm ">{heroContent.btn_link_one}</button>
+                                </div>
+                                <div className="my-5 flex">
+                                    <h1 className="mr-4 text-sm flex py-1.5">Button-1 : </h1>
+                                    <button className="py-1.5 px-4 border rounded-lg text-sm ">{heroContent.btn_link_two}</button>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -162,38 +218,40 @@ const SettingPage = ({ heroContent, seoContent }) => {
                 <div className="w-full md:w-1/2">
                     <h3 className="mb-3 text-lg font-semibold">Social Link Setting</h3>
                     <div className="">
-                        <form action="#" method="POST" className="grid grid-cols-1 gap-y-3">
+                        <form onSubmit={handleSubmit(SocialLinkDataSubmit)} className="grid grid-cols-1 gap-y-3">
                             <div>
                                 <input
-                                    id="author"
-                                    name="author"
+                                    id="facebook"
                                     type="text"
-                                    className="block w-full shadow-sm py-1 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="Facebook"
+                                    {...register("facebook")}
                                 />
                             </div>
                             <div>
                                 <input
-                                    id="author"
-                                    name="author"
+                                    id="twitter"
                                     type="text"
-                                    className="block w-full shadow-sm py-1 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
-                                    placeholder="Twitter"
+                                    className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    placeholder="twitter"
+                                    {...register("twitter")}
+
                                 />
                             </div>
                             <div>
                                 <input
-                                    id="author"
-                                    name="author"
+                                    id="linkedin"
                                     type="text"
-                                    className="block w-full shadow-sm py-1 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="Linkedin"
+                                    {...register("linkedin")}
+
                                 />
                             </div>
                             <div>
                                 <button
                                     type="submit"
-                                    className="inline-flex justify-center py-1 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 w-full"
+                                    className="inline-flex justify-center py-1.5 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 w-full"
                                 >
                                     Save
                                 </button>
@@ -204,20 +262,20 @@ const SettingPage = ({ heroContent, seoContent }) => {
                 <div className="w-full md:w-1/2">
                     <h3 className="mb-3 text-lg font-semibold">Existing Social Links</h3>
                     <ul role="list" className="space-y-4">
-                        {people.map((person) => (
-                            <li key={person.email} className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
+                        {linkContents?.map((links) => (
+                            <li key={links.id} className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
                                 <div className="w-full p-6 space-y-3">
-                                    <div className="flex">
-                                        <h1 className="mr-4 text-sm flex py-1">Facebook : </h1>
-                                        <button className="py-1 px-4 border rounded-lg text-sm ">http://souravkairsdsdy.me</button>
+                                    <div className="flex justify-between">
+                                        <h1 className="mr-4 text-sm flex py-1.5">Facebook : </h1>
+                                        <button className="py-1.5 px-4 border rounded-lg text-sm ">{links.facebook}</button>
                                     </div>
-                                    <div className="flex">
-                                        <h1 className="mr-4 text-sm flex py-1">Twitter : </h1>
-                                        <button className="py-1 px-4 border rounded-lg text-sm ">http://souravkaisdsddsdry.me</button>
+                                    <div className="flex justify-between">
+                                        <h1 className="mr-4 text-sm flex py-1.5">Twitter : </h1>
+                                        <button className="py-1.5 px-4 border rounded-lg text-sm ">{links.twitter}</button>
                                     </div>
-                                    <div className="flex">
-                                        <h1 className="mr-4 text-sm flex py-1">Linkedin : </h1>
-                                        <button className="py-1 px-4 border rounded-lg text-sm ">http://souravkaisdsddsdry.me</button>
+                                    <div className="flex justify-between">
+                                        <h1 className="mr-4 text-sm flex py-1.5">Linkedin : </h1>
+                                        <button className="py-1.5 px-4 border rounded-lg text-sm ">{links.linkedin}</button>
                                     </div>
                                 </div>
                             </li>
@@ -245,7 +303,7 @@ const SettingPage = ({ heroContent, seoContent }) => {
                                     rows={4}
                                     id="meta_description"
                                     type="text"
-                                    className="block w-full shadow-sm py-1 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="Meta Description"
                                     {...register("meta_description")}
                                 />
@@ -254,7 +312,7 @@ const SettingPage = ({ heroContent, seoContent }) => {
                                 <input
                                     id="canonical_link"
                                     type="text"
-                                    className="block w-full shadow-sm py-1 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="Canonical"
                                     {...register("canonical_link")}
                                 />
@@ -263,7 +321,7 @@ const SettingPage = ({ heroContent, seoContent }) => {
                                 <input
                                     id="seo_image"
                                     type="file"
-                                    className="block w-full shadow-sm py-1 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="SEO Image"
                                     {...register("seo_image")}
                                 />
@@ -272,7 +330,7 @@ const SettingPage = ({ heroContent, seoContent }) => {
                                 <input
                                     id="site_name"
                                     type="text"
-                                    className="block w-full shadow-sm py-1 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="Site Name"
                                     {...register("site_name")}
                                 />
@@ -281,7 +339,7 @@ const SettingPage = ({ heroContent, seoContent }) => {
                             <div>
                                 <button
                                     type="submit"
-                                    className="inline-flex justify-center py-1 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 w-full"
+                                    className="inline-flex justify-center py-1.5 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 w-full"
                                 >
                                     Save
                                 </button>
@@ -293,28 +351,28 @@ const SettingPage = ({ heroContent, seoContent }) => {
                 <div className="w-full md:w-1/2">
                     <h3 className="mb-3 text-lg font-semibold">Existing Contents</h3>
                     <ul role="list" className="space-y-4">
-                        {seoContent.map((content) => (
+                        {seoContent?.map((content) => (
                             <li key={content.id} className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
                                 <div className="w-full p-6 space-y-3">
                                     <div className="flex justify-between">
-                                        <h1 className="mr-4 text-sm flex py-1">Meta Title: </h1>
-                                        <button className="py-1 px-4 border rounded-lg text-sm ">{content.meta_title}</button>
+                                        <h1 className="mr-4 text-sm flex py-1.5">Meta Title: </h1>
+                                        <button className="py-1.5 px-4 border rounded-lg text-sm ">{content.meta_title}</button>
                                     </div>
                                     <div className="flex justify-between">
-                                        <h1 className="mr-4 text-sm flex py-1">Meta Description : </h1>
-                                        <button className="py-1 px-4 border rounded-lg text-sm text-left">{content.meta_description}</button>
+                                        <h1 className="mr-4 text-sm flex py-1.5">Meta Description : </h1>
+                                        <button className="py-1.5 px-4 border rounded-lg text-sm text-left">{content.meta_description}</button>
                                     </div>
                                     <div className="flex justify-between">
-                                        <h1 className="mr-4 text-sm flex py-1">Canonical Link : </h1>
-                                        <button className="py-1 px-4 border rounded-lg text-sm ">{content.canonical_link}</button>
+                                        <h1 className="mr-4 text-sm flex py-1.5">Canonical Link : </h1>
+                                        <button className="py-1.5 px-4 border rounded-lg text-sm ">{content.canonical_link}</button>
                                     </div>
                                     <div className="flex justify-between">
-                                        <h1 className="mr-4 text-sm flex py-1">Seo Image : </h1>
+                                        <h1 className="mr-4 text-sm flex py-1.5">Seo Image : </h1>
                                         <img src={content.image_url} alt="" className='w-1/3 bg-gray-300 rounded-lg flex-shrink-0' />
                                     </div>
                                     <div className="flex justify-between">
-                                        <h1 className="mr-4 text-sm flex py-1">Site Name : </h1>
-                                        <button className="py-1 px-4 border rounded-lg text-sm ">{content.site_name}</button>
+                                        <h1 className="mr-4 text-sm flex py-1.5">Site Name : </h1>
+                                        <button className="py-1.5 px-4 border rounded-lg text-sm ">{content.site_name}</button>
                                     </div>
                                 </div>
                             </li>

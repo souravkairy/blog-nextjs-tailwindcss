@@ -41,7 +41,7 @@ const heroSection = ({ content }) => {
                 {/* <Image src= {`http://127.0.0.1:8000/${content.image}`}
                     className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" layout='fill'
                 /> */}
-                <img className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src={`http://127.0.0.1:8000/${content.image}`} alt="" />
+                <img className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src={content.image_url} alt="" />
             </div>
         </div>
     )

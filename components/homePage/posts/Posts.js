@@ -32,23 +32,23 @@ const AllPost = ({ posts }) => {
                                     </div>
                                     <div className="flex-1 bg-white p-6 flex flex-col justify-between">
                                         <div className="flex-1">
-                                            <a href={post.href} className="block mt-2">
-                                                <p className="text-xl font-semibold text-gray-900">{post.title}</p>
-                                                <p className="mt-3 text-base text-gray-500">{post.text.substr(0, 100) + ' . . . . . . .'}</p>
-                                            </a>
+
+                                            <p className="text-xl font-semibold text-gray-900">{post.title}</p>
+                                            <p className="mt-3 text-base text-gray-500">{post.text.substr(0, 100) + ' . . . . . . .'}</p>
+
                                         </div>
                                         <div className="mt-6 flex items-center">
                                             <div className="flex-shrink-0">
-                                                <a href={post.author.href}>
-                                                    <span className="sr-only">{post.author}</span>
-                                                    <img className="h-10 w-10 rounded-full" src={post.image_url} alt="" />
-                                                </a>
+
+                                                <span className="sr-only">{post.author}</span>
+                                                <img className="h-10 w-10 rounded-full" src={post.image_url} alt="" />
+
                                             </div>
                                             <div className="ml-3">
                                                 <p className="text-base font-medium text-gray-900">
-                                                    <a href={post.author.href} className="hover:underline">
-                                                        {post.author}
-                                                    </a>
+
+                                                    {post.author}
+
                                                 </p>
                                                 <p className="text-xs font-normal text-gray-900">
                                                     {post.created_at}
