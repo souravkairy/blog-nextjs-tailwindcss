@@ -8,8 +8,8 @@ const SvgThumbsDownLight = (props) => (
     className="thumbs-down-light_svg__svg-inline--fa thumbs-down-light_svg__fa-thumbs-down thumbs-down-light_svg__fa-w-16"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 512 512"
-    width="1.5em"
-    height="1.5em"
+    width="1.25em"
+    height="1.25em"
     {...props}
   >
     <path

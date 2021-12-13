@@ -11,7 +11,7 @@ const LoginPage = () => {
     } = useForm();
     const onSubmit = (data) => {
         console.log(data);
-        
+
         // const options = {
         //     method: 'POST',
         //     url: ApiUrl + 'message',
@@ -27,13 +27,13 @@ const LoginPage = () => {
         // });
     };
     return (
-        <div className="min-h-full flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-            <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+            {/* <div className="sm:mx-auto sm:w-full sm:max-w-md">
                 <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
-            </div>
-
-            <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            </div> */}
+            <div className="sm:mx-auto sm:w-full sm:max-w-md">
+                <div className="bg-white py-8 px-4 border shadow sm:rounded-lg sm:px-10">
+                    <h2 className="mb-6 text-center text-2xl font-bold text-gray-900">Sign in to <span className='text-indigo-600'>Admin Dashboard</span> </h2>
                     <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -42,11 +42,9 @@ const LoginPage = () => {
                             <div className="mt-1">
                                 <input
                                     id="email"
-                                    type="email"
                                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    {...register("email", { required: true })}
+                                    {...register("email", { pattern: /@./ })}
                                 />
-                                {errors.email && <p className="text-red-600 text-xs">This field is required</p>}
                             </div>
                         </div>
 
@@ -57,16 +55,12 @@ const LoginPage = () => {
                             <div className="mt-1">
                                 <input
                                     id="password"
-                                    type="password"
                                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                     {...register("password", { required: true })}
                                 />
-                                {errors.password && <p className="text-red-600 text-xs">This field is required</p>}
-
                             </div>
                         </div>
-
-                        <div className="flex items-center justify-between">
+                        {/* <div className="flex items-center justify-between">
                             <div className="flex items-center">
                                 <input
                                     id="remember-me"
@@ -78,8 +72,7 @@ const LoginPage = () => {
                                     Remember me
                                 </label>
                             </div>
-                        </div>
-
+                        </div> */}
                         <div>
                             <button
                                 type="submit"

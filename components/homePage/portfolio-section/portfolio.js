@@ -15,7 +15,7 @@ const portfolio = ({ contents }) => {
                         role="list"
                         className="mx-auto grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-5 md:gap-x-6 lg:max-w-7xl lg:gap-x-6 lg:gap-y-6 xl:grid-cols-6"
                     >
-                        {contents.map((data) => (
+                        {contents?.map((data) => (
                             <li key={data.id} className="border px-3 py-5 rounded-lg hover:border-indigo-600 cursor-pointer hover:shadow-sm">
                                 <div className="space-y-4">
                                     <img className="mx-auto h-20 w-20 rounded-full lg:w-24 lg:h-24" src={data.image_url} alt="" />

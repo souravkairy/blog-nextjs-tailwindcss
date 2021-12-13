@@ -1,7 +1,7 @@
 import React from 'react'
 import LoginPage from '../../components/dashboard/login-page'
 
-const login = () => {
+const index = () => {
     return (
         <div>
             <LoginPage />
@@ -9,4 +9,4 @@ const login = () => {
     )
 }
 
-export default login
+export default index

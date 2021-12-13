@@ -122,7 +122,7 @@ const PortfolioPage = ({ contents, onCreated, onDeleted }) => {
             <div className="w-full md:w-1/2">
                 <h3 className="mb-3 text-lg font-semibold">Portfolio List</h3>
                 <ul role="list" className="space-y-4">
-                    {contents.map((data) => (
+                    {contents?.map((data) => (
                         <li key={data.id} className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
                             <div className="w-full flex items-center justify-between p-4 space-x-6">
                                 <div className="flex-1 truncate">

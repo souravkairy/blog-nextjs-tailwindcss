@@ -33,9 +33,9 @@ const contact = ({ content }) => {
             <div className="max-w-7xl mx-auto flex flex-wrap rounded-lg border">
                 <div className="bg-purple-50 py-10 px-5 sm:px-10 w-full md:w-1/2 ">
                     <div className="">
-                        <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">{content.heading}</h2>
+                        <h2 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">{content?.heading}</h2>
                         <p className="mt-3 text-lg leading-6 text-gray-500">
-                            {content.sub_heading}
+                            {content?.sub_heading}
                         </p>
                         <dl className="mt-8 text-base text-gray-500">
                             <div>
@@ -43,7 +43,7 @@ const contact = ({ content }) => {
                                 <dd>
                                     <p>
 
-                                        {content.address}
+                                        {content?.address}
                                     </p>
                                     {/* <p>Springfield, OR 12345</p> */}
                                 </dd>
@@ -52,14 +52,14 @@ const contact = ({ content }) => {
                                 <dt className="sr-only">Phone number</dt>
                                 <dd className="flex">
                                     <PhoneIcon className="flex-shrink-0 h-6 w-6 text-gray-400" aria-hidden="true" />
-                                    <span className="ml-3">{content.mobile_number}</span>
+                                    <span className="ml-3">{content?.mobile_number}</span>
                                 </dd>
                             </div>
                             <div className="mt-3">
                                 <dt className="sr-only">Email</dt>
                                 <dd className="flex">
                                     <MailIcon className="flex-shrink-0 h-6 w-6 text-gray-400" aria-hidden="true" />
-                                    <span className="ml-3">{content.email}</span>
+                                    <span className="ml-3">{content?.email}</span>
                                 </dd>
                             </div>
                         </dl>

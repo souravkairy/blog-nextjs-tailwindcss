@@ -8,8 +8,8 @@ const SvgTrashRegular = (props) => (
     className="trash-regular_svg__svg-inline--fa trash-regular_svg__fa-trash trash-regular_svg__fa-w-14"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 448 512"
-    width="1.5em"
-    height="1.5em"
+    width="1.25em"
+    height="1.25em"
     {...props}
   >
     <path

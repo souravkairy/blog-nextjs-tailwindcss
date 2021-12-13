@@ -192,21 +192,21 @@ const SettingPage = ({ heroContent, seoContent, onslCreated, linkContents, onCre
                 <div className="w-full md:w-1/2">
                     <h3 className="mb-3 text-lg font-semibold">Existing Section</h3>
                     <ul role="list" className="space-y-4">
-                        <li key={heroContent.id} className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
+                        <li key={heroContent?.id} className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
                             <div className="w-full p-6">
-                                <img className="w-1/3 mx-auto bg-gray-300 rounded-lg flex-shrink-0" src={heroContent.image_url} alt="" />
+                                <img className="w-1/3 mx-auto bg-gray-300 rounded-lg flex-shrink-0" src={heroContent?.image_url} alt="" />
                                 <div className="my-5">
-                                    <h3 className="text-gray-900 text-lg font-medium text-center">{heroContent.heading}</h3>
-                                    <h3 className="text-gray-900 text-lg font-normal text-center">{heroContent.sub_heading}</h3>
-                                    <p className="mt-1 text-gray-500 text-sm text-center">{heroContent.text}</p>
+                                    <h3 className="text-gray-900 text-lg font-medium text-center">{heroContent?.heading}</h3>
+                                    <h3 className="text-gray-900 text-lg font-normal text-center">{heroContent?.sub_heading}</h3>
+                                    <p className="mt-1 text-gray-500 text-sm text-center">{heroContent?.text}</p>
                                 </div>
                                 <div className="my-5 flex">
                                     <h1 className="mr-4 text-sm flex py-1.5">Button-1 : </h1>
-                                    <button className="py-1.5 px-4 border rounded-lg text-sm ">{heroContent.btn_link_one}</button>
+                                    <button className="py-1.5 px-4 border rounded-lg text-sm ">{heroContent?.btn_link_one}</button>
                                 </div>
                                 <div className="my-5 flex">
                                     <h1 className="mr-4 text-sm flex py-1.5">Button-1 : </h1>
-                                    <button className="py-1.5 px-4 border rounded-lg text-sm ">{heroContent.btn_link_two}</button>
+                                    <button className="py-1.5 px-4 border rounded-lg text-sm ">{heroContent?.btn_link_two}</button>
                                 </div>
                             </div>
                         </li>

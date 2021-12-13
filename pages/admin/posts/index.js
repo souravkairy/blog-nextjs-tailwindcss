@@ -1,7 +1,7 @@
 import React from 'react'
-import DashboardLayout from '../../components/dashboard/dashboard-layout'
-import Posts from '../../components/dashboard/post-page/Posts'
-import { ApiUrl } from '../../config/ApiConfig'
+import DashboardLayout from '../../../components/dashboard/dashboard-layout'
+import Posts from '../../../components/dashboard/post-page/Posts'
+import { ApiUrl } from '../../../config/ApiConfig'
 import axios from 'axios'
 
 const AllPost = ({ posts }) => {

@@ -5,20 +5,14 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { ApiUrl } from "../../../config/ApiConfig";
-// import JoditEditor from "jodit-react";
-const AddPostPage = () => {
+
+const EditPost = ({ content }) => {
     const {
         register,
         handleSubmit,
-        reset,
+        reset, setValue,
         formState: { errors }
     } = useForm();
-    const text = useRef(null)
-    const [content, setContent] = useState('')
-
-    const config = {
-        readonly: false // all options from https://xdsoft.net/jodit/doc/
-    }
     const onSubmit = (data) => {
         console.log(data, ...content)
         const formData = new FormData();
@@ -49,7 +43,7 @@ const AddPostPage = () => {
             <div className="bg-gray-50 px-4 py-3 border-b border rounded-lg mb-4">
                 <div className="flex items-center justify-between flex-wrap sm:flex-nowrap">
                     <div className="">
-                        <h3 className="text-lg leading-6 font-medium text-gray-900">Add Post</h3>
+                        <h3 className="text-lg leading-6 font-medium text-gray-900">Edit Post</h3>
                     </div>
                     <div className="">
                         <Link href="posts">
@@ -91,14 +85,6 @@ const AddPostPage = () => {
                                     <label htmlFor="message" className="sr-only">
                                         Message
                                     </label>
-                                    {/* <JoditEditor
-                                        ref={text}
-                                        value={content}
-                                        config={config}
-                                        tabIndex={2} // tabIndex of textarea
-                                        onBlur={newContent => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
-
-                                    /> */}
                                     <textarea
                                         id="text"
                                         rows={4}
@@ -166,7 +152,7 @@ const AddPostPage = () => {
                                         type="submit"
                                         className="inline-flex justify-center py-1 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 w-full"
                                     >
-                                        Submit
+                                        Update
                                     </button>
                                     <ToastContainer />
                                 </div>
@@ -175,14 +161,9 @@ const AddPostPage = () => {
                     </div>
                 </div>
             </div>
+
         </>
     )
 }
-export default AddPostPage
 
-
-
-
-
-
-
+export default EditPost

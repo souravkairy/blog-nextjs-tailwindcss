@@ -8,8 +8,8 @@ const SvgEyeRegular = (props) => (
     className="eye-regular_svg__svg-inline--fa eye-regular_svg__fa-eye eye-regular_svg__fa-w-18"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 576 512"
-    width="1.5em"
-    height="1.5em"
+    width="1.25em"
+    height="1.25em"
     {...props}
   >
     <path

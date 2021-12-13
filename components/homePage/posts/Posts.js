@@ -7,7 +7,7 @@ const AllPost = ({ posts }) => {
     const slug = router.pathname;
     const [count, setCount] = useState('')
     useEffect(() => {
-        slug === '/posts' ? setCount(10) : setCount(4)
+        slug === '/posts' ? setCount(10) : setCount(3)
     }, [setCount])
     return (
         <>
@@ -23,7 +23,49 @@ const AllPost = ({ posts }) => {
                             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsa libero labore natus atque, ducimus sed.
                         </p>
                     </div>
-                    <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-4 lg:max-w-none">
+                    <div className="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
+                        {
+                            posts?.filter(function (post) {
+                                return post.status === 1;
+                            }).slice(0, count).map((post) => (
+                                <Link href={'/posts/' + post.id} >
+                                    <div key={post.id} className="flex flex-col rounded-lg shadow-lg overflow-hidden cursor-pointer">
+                                        <div className="flex-shrink-0">
+                                            <img className="h-48 w-full object-cover" src={post.image_url} alt="" />
+                                        </div>
+                                        <div className="flex-1 bg-white p-6 flex flex-col justify-between">
+                                            <div className="flex-1">
+
+                                                <p className="text-xl font-semibold text-gray-900">{post.title}</p>
+                                                <p className="mt-3 text-base text-gray-500">{post.text.substr(0, 100) + ' . . . . . . .'}</p>
+
+                                            </div>
+                                            <div className="mt-6 flex items-center">
+                                                <div className="flex-shrink-0">
+
+                                                    <span className="sr-only">{post.author}</span>
+                                                    <img className="h-10 w-10 rounded-full" src={post.image_url} alt="" />
+
+                                                </div>
+                                                <div className="ml-3">
+                                                    <p className="text-base font-medium text-gray-900">
+
+                                                        {post.author}
+
+                                                    </p>
+                                                    <p className="text-xs font-normal text-gray-900">
+                                                        {post.created_at}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            ))
+                        }
+
+                        {/* 
+
                         {posts?.slice(0, count)?.map((post) => (
                             <Link href={'/posts/' + post.id} >
                                 <div key={post.id} className="flex flex-col rounded-lg shadow-lg overflow-hidden cursor-pointer">
@@ -58,7 +100,7 @@ const AllPost = ({ posts }) => {
                                     </div>
                                 </div>
                             </Link>
-                        ))}
+                        ))} */}
                     </div>
                     {
                         slug === '/posts' ?
