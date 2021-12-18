@@ -19,7 +19,7 @@ const PortfolioPage = ({ contents, onCreated, onDeleted }) => {
         formData.append('link', data.link);
         formData.append('image', data.image[0]);
 
-        axios.post(ApiUrl + 'portfolios', formData, {
+        axios.post(ApiUrl + 'admin/portfolios', formData, {
             headers: {
                 'Content-Type': `multipart/form-data`
             }

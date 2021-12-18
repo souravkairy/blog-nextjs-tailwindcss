@@ -31,7 +31,7 @@ export default Portfolio
 
 export async function getStaticProps() {
   try {
-    const res = await axios.get(ApiUrl + 'portfolios');
+    const res = await axios.get(ApiUrl + 'admin/portfolios');
     const data = res.data;
     return {
       props: {

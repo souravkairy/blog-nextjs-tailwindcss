@@ -15,7 +15,7 @@ export default Messages
 
 export async function getStaticProps() {
     try {
-      const res = await axios.get(ApiUrl + 'messages');
+      const res = await axios.get(ApiUrl + 'admin/messages');
       const data = res.data;
       return {
         props: {

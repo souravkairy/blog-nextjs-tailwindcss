@@ -6,7 +6,6 @@ import { ApiUrl } from '../../config/ApiConfig';
 import { NextSeo } from 'next-seo';
 
 const SinglePost = ({ post }) => {
-    console.log(post);
     return (
         <>
             <NextSeo
@@ -38,10 +37,10 @@ const SinglePost = ({ post }) => {
                         <div>
                             <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">Case Study</h2>
                             <h3 className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                                {post.title}
+                                {post?.title}
                             </h3><br />
-                            <p>By-<b>{post.author}</b></p>
-                            <p><b>{post.created_at}</b></p>
+                            <p>By-<b>{post?.author}</b></p>
+                            <p><b>{post?.created_at}</b></p>
                         </div>
                     </div>
                     <div className="mt-8 lg:grid lg:grid-cols-2 lg:gap-8">
@@ -73,7 +72,7 @@ const SinglePost = ({ post }) => {
                                     <div className="aspect-w-12 aspect-h-7 lg:aspect-none">
                                         <img
                                             className="rounded-lg shadow-lg object-cover object-center"
-                                            src={post.image_url}
+                                            src={post?.image_url}
                                             alt="Whitney leaning against a railing on a downtown street"
                                             width={1184}
                                             height={1376}
@@ -85,7 +84,7 @@ const SinglePost = ({ post }) => {
                         <div className="mt-8 lg:mt-0">
                             <div className="mt-5 prose prose-indigo text-gray-500 mx-auto lg:max-w-none lg:row-start-1 lg:col-start-1">
                                 <p>
-                                    {post.text}
+                                    {post?.text}
                                 </p>
                             </div>
                         </div>
@@ -101,7 +100,7 @@ export default SinglePost
 
 SinglePost.getInitialProps = async ({ query }) => {
     try {
-        const res = await axios.get(ApiUrl + `posts/${query.id}`);
+        const res = await axios.get(ApiUrl + `user/posts/${query.id}`);
         const post = res.data;
         return {
             post,

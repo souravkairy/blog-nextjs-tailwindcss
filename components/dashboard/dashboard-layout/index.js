@@ -27,7 +27,15 @@ const DashboardLayout = ({ children }) => {
     useEffect(() => {
         setSlug(routingSlug)
     }, [setSlug])
-    console.log(slug);
+
+    const logout = async () => {
+        await fetch('http://localhost:8000/api/logout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+        })
+        await router.push('/login');
+    }
     return (
         <div className="min-h-full">
             <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -202,6 +210,7 @@ const DashboardLayout = ({ children }) => {
                                 </Link>
                             </div>
                             <button
+                                onClick={logout}
                                 type="button"
                                 className="px-4 py-1.5 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 sm:order-0 sm:ml-0"
                             >

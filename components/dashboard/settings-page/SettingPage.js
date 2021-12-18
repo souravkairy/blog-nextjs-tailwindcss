@@ -4,18 +4,7 @@ import axios from 'axios';
 import { ApiUrl } from "../../../config/ApiConfig";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const people = [
-    {
-        name: 'Active Post',
-        title: 'Regional Paradigm Technician',
-        role: 'Posts',
-        email: 'janecooper@example.com',
-        telephone: '+1-202-555-0170',
-        imageUrl:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-    },
-]
-const SettingPage = ({ heroContent, seoContent, onslCreated, linkContents, onCreated, onHsCreated }) => {
+const SettingPage = ({ heroContent, seoContent, onslCreated, linkContents, onSeoCreated, onHsCreated }) => {
     const {
         register,
         handleSubmit,
@@ -30,7 +19,7 @@ const SettingPage = ({ heroContent, seoContent, onslCreated, linkContents, onCre
         formData.append('seo_image', data.seo_image[0]);
         formData.append('site_name', data.site_name);
 
-        axios.post(ApiUrl + 'seo', formData, {
+        axios.post(ApiUrl + 'admin/seo', formData, {
             headers: {
                 'Content-Type': `multipart/form-data`
             }
@@ -39,7 +28,7 @@ const SettingPage = ({ heroContent, seoContent, onslCreated, linkContents, onCre
             .then(({ message, seo }) => {
                 reset()
                 toast.success(message)
-                onCreated(seo)
+                onSeoCreated(seo)
             })
             .catch(err => {
                 err.response.data && toast.success(err.response.data.message)
@@ -47,16 +36,7 @@ const SettingPage = ({ heroContent, seoContent, onslCreated, linkContents, onCre
             });
     };
     const SocialLinkDataSubmit = (data) => {
-        console.log(data);
-        const formData = new FormData();
-        formData.append('facebook', data.facebook);
-        formData.append('twitter', data.twitter);
-        formData.append('linkedin', data.linkedin);
-        axios.post(ApiUrl + 'social-link', formData, {
-            headers: {
-                'Content-Type': `multipart/form-data`
-            }
-        })
+        axios.post(ApiUrl + 'admin/social-link', data)
             .then(res => res.data)
             .then(({ message, links }) => {
                 reset()
@@ -77,7 +57,7 @@ const SettingPage = ({ heroContent, seoContent, onslCreated, linkContents, onCre
         formData.append('btn_link_one', data.btn_link_one);
         formData.append('btn_link_two', data.btn_link_two);
         formData.append('image', data.image[0]);
-        axios.post(ApiUrl + 'hero', formData, {
+        axios.post(ApiUrl + 'admin/hero', formData, {
             headers: {
                 'Content-Type': `multipart/form-data`
             }
@@ -249,6 +229,26 @@ const SettingPage = ({ heroContent, seoContent, onslCreated, linkContents, onCre
                                 />
                             </div>
                             <div>
+                                <input
+                                    id="youtube"
+                                    type="text"
+                                    className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    placeholder="youtube"
+                                    {...register("youtube")}
+
+                                />
+                            </div>
+                            <div>
+                                <input
+                                    id="linkedin"
+                                    type="text"
+                                    className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    placeholder="Instagram"
+                                    {...register("instagram")}
+
+                                />
+                            </div>
+                            <div>
                                 <button
                                     type="submit"
                                     className="inline-flex justify-center py-1.5 border border-transparent shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 w-full"
@@ -262,24 +262,30 @@ const SettingPage = ({ heroContent, seoContent, onslCreated, linkContents, onCre
                 <div className="w-full md:w-1/2">
                     <h3 className="mb-3 text-lg font-semibold">Existing Social Links</h3>
                     <ul role="list" className="space-y-4">
-                        {linkContents?.map((links) => (
-                            <li key={links.id} className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
-                                <div className="w-full p-6 space-y-3">
-                                    <div className="flex justify-between">
-                                        <h1 className="mr-4 text-sm flex py-1.5">Facebook : </h1>
-                                        <button className="py-1.5 px-4 border rounded-lg text-sm ">{links.facebook}</button>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <h1 className="mr-4 text-sm flex py-1.5">Twitter : </h1>
-                                        <button className="py-1.5 px-4 border rounded-lg text-sm ">{links.twitter}</button>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <h1 className="mr-4 text-sm flex py-1.5">Linkedin : </h1>
-                                        <button className="py-1.5 px-4 border rounded-lg text-sm ">{links.linkedin}</button>
-                                    </div>
+                        <li key={linkContents.id} className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
+                            <div className="w-full p-6 space-y-3">
+                                <div className="flex justify-between">
+                                    <h1 className="mr-4 text-sm flex py-1.5">Facebook : </h1>
+                                    <button className="py-1.5 px-4 border rounded-lg text-sm ">{linkContents?.facebook}</button>
                                 </div>
-                            </li>
-                        ))}
+                                <div className="flex justify-between">
+                                    <h1 className="mr-4 text-sm flex py-1.5">Twitter : </h1>
+                                    <button className="py-1.5 px-4 border rounded-lg text-sm ">{linkContents?.twitter}</button>
+                                </div>
+                                <div className="flex justify-between">
+                                    <h1 className="mr-4 text-sm flex py-1.5">Linkedin : </h1>
+                                    <button className="py-1.5 px-4 border rounded-lg text-sm ">{linkContents?.linkedin}</button>
+                                </div>
+                                <div className="flex justify-between">
+                                    <h1 className="mr-4 text-sm flex py-1.5">Youtube : </h1>
+                                    <button className="py-1.5 px-4 border rounded-lg text-sm ">{linkContents?.youtube}</button>
+                                </div>
+                                <div className="flex justify-between">
+                                    <h1 className="mr-4 text-sm flex py-1.5">Instagram : </h1>
+                                    <button className="py-1.5 px-4 border rounded-lg text-sm ">{linkContents?.instagram}</button>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -351,32 +357,30 @@ const SettingPage = ({ heroContent, seoContent, onslCreated, linkContents, onCre
                 <div className="w-full md:w-1/2">
                     <h3 className="mb-3 text-lg font-semibold">Existing Contents</h3>
                     <ul role="list" className="space-y-4">
-                        {seoContent?.map((content) => (
-                            <li key={content.id} className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
-                                <div className="w-full p-6 space-y-3">
-                                    <div className="flex justify-between">
-                                        <h1 className="mr-4 text-sm flex py-1.5">Meta Title: </h1>
-                                        <button className="py-1.5 px-4 border rounded-lg text-sm ">{content.meta_title}</button>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <h1 className="mr-4 text-sm flex py-1.5">Meta Description : </h1>
-                                        <button className="py-1.5 px-4 border rounded-lg text-sm text-left">{content.meta_description}</button>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <h1 className="mr-4 text-sm flex py-1.5">Canonical Link : </h1>
-                                        <button className="py-1.5 px-4 border rounded-lg text-sm ">{content.canonical_link}</button>
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <h1 className="mr-4 text-sm flex py-1.5">Seo Image : </h1>
-                                        <img src={content.image_url} alt="" className='w-1/3 bg-gray-300 rounded-lg flex-shrink-0' />
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <h1 className="mr-4 text-sm flex py-1.5">Site Name : </h1>
-                                        <button className="py-1.5 px-4 border rounded-lg text-sm ">{content.site_name}</button>
-                                    </div>
+                        <li key={seoContent.id} className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
+                            <div className="w-full p-6 space-y-3">
+                                <div className="flex justify-between">
+                                    <h1 className="mr-4 text-sm flex py-1.5">Meta Title: </h1>
+                                    <button className="py-1.5 px-4 border rounded-lg text-sm ">{seoContent.meta_title}</button>
                                 </div>
-                            </li>
-                        ))}
+                                <div className="flex justify-between">
+                                    <h1 className="mr-4 text-sm flex py-1.5">Meta Description : </h1>
+                                    <button className="py-1.5 px-4 border rounded-lg text-sm text-left">{seoContent.meta_description}</button>
+                                </div>
+                                <div className="flex justify-between">
+                                    <h1 className="mr-4 text-sm flex py-1.5">Canonical Link : </h1>
+                                    <button className="py-1.5 px-4 border rounded-lg text-sm ">{seoContent.canonical_link}</button>
+                                </div>
+                                <div className="flex justify-between">
+                                    <h1 className="mr-4 text-sm flex py-1.5">Seo Image : </h1>
+                                    <img src={seoContent.image_url} alt="" className='w-1/3 bg-gray-300 rounded-lg flex-shrink-0' />
+                                </div>
+                                <div className="flex justify-between">
+                                    <h1 className="mr-4 text-sm flex py-1.5">Site Name : </h1>
+                                    <button className="py-1.5 px-4 border rounded-lg text-sm ">{seoContent.site_name}</button>
+                                </div>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>

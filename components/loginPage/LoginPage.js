@@ -1,40 +1,31 @@
-import React from 'react'
-import { useForm } from "react-hook-form";
-import axios from 'axios';
+import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 
-const LoginPage = () => {
-    const {
-        register,
-        handleSubmit,
-        reset,
-        formState: { errors }
-    } = useForm();
-    const onSubmit = (data) => {
-        console.log(data);
+const LoginPage = ({ setToken }) => {
+    const route = useRouter();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-        // const options = {
-        //     method: 'POST',
-        //     url: ApiUrl + 'message',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     data: data
-        // };
-        // axios.request(options).then(function (response) {
-        //     console.log(response.data);
-        //     reset()
-        //     toast.success("Message send successfully")
-        // }).catch(function (error) {
-        //     console.error(error);
-        // });
-    };
+    const submit = async (e) => {
+        e.preventDefault();
+        await fetch('http://localhost:8000/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({
+                email,
+                password
+            })
+        }).then(response => response.json())
+            .then(data => setToken(data));
+        await route.push('admin/dashboard');
+    }
     return (
         <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-            {/* <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>
-            </div> */}
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
                 <div className="bg-white py-8 px-4 border shadow sm:rounded-lg sm:px-10">
                     <h2 className="mb-6 text-center text-2xl font-bold text-gray-900">Sign in to <span className='text-indigo-600'>Admin Dashboard</span> </h2>
-                    <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+                    <form className="space-y-6" onSubmit={submit}>
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                                 Email address
@@ -43,7 +34,7 @@ const LoginPage = () => {
                                 <input
                                     id="email"
                                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    {...register("email", { pattern: /@./ })}
+                                    onChange={e => setEmail(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -56,23 +47,10 @@ const LoginPage = () => {
                                 <input
                                     id="password"
                                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    {...register("password", { required: true })}
+                                    onChange={e => setPassword(e.target.value)}
                                 />
                             </div>
                         </div>
-                        {/* <div className="flex items-center justify-between">
-                            <div className="flex items-center">
-                                <input
-                                    id="remember-me"
-                                    name="remember-me"
-                                    type="checkbox"
-                                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                                />
-                                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                                    Remember me
-                                </label>
-                            </div>
-                        </div> */}
                         <div>
                             <button
                                 type="submit"

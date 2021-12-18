@@ -17,7 +17,7 @@ const AddPostPage = () => {
     const [content, setContent] = useState('')
 
     const config = {
-        readonly: false // all options from https://xdsoft.net/jodit/doc/
+        readonly: false 
     }
     const onSubmit = (data) => {
         console.log(data, ...content)
@@ -29,7 +29,7 @@ const AddPostPage = () => {
         formData.append('meta_description', data.meta_description);
         formData.append('image', data.image[0]);
 
-        axios.post(ApiUrl + 'posts/store', formData, {
+        axios.post(ApiUrl + 'admin/posts/store', formData, {
             headers: {
                 'Content-Type': `multipart/form-data`
             }

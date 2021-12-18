@@ -10,58 +10,64 @@ import { ApiUrl } from '../config/ApiConfig'
 import { NextSeo } from 'next-seo';
 import axios from 'axios'
 
-const index = ({ posts, heroSectionData, portfolioSectionData, ctaData, contactInfo }) => {
+const index = ({ posts, heroSectionData, portfolioSectionData, ctaData, contactInfo, socialLink, seoData }) => {
   return (
     <>
       <NextSeo
-        title="Using More of Config"
-        description="This example uses more of the available config options."
-        canonical="https://rezahaque.me/"
+        title={seoData.meta_title}
+        description={seoData.meta_description}
+        canonical={seoData.canonical_link}
         openGraph={{
-          url: 'https://www.url.ie/a',
-          title: 'Open Graph Title',
-          description: 'Open Graph Description',
-          images: { url: 'https://www.example.ie/og-image-03.jpg' },
-          site_name: 'SiteName',
+          url: `${seoData.canonical_link}`,
+          title: `${seoData.meta_title}`,
+          description: `${seoData.meta_description}`,
+          images: { url: `${seoData.image_url}` },
+          site_name: `${seoData.site_name}`,
         }}
-        // twitter={{
-        //   handle: '@handle',
-        //   site: '@site',
-        //   cardType: 'summary_large_image',
-        // }}
+      // twitter={{
+      //   handle: '@handle',
+      //   site: '@site',
+      //   cardType: 'summary_large_image',
+      // }}
       />
-      <ScrollToTop smooth color="#6f00ff" className="bg-white shadow-lg fixed right-7 bottom-7 p-3 text-white z-50 cursor-pointer rounded-lg w-14 h-14 
-      transition ease-in-out duration-700 outline-none"/>
+      {/* <ScrollToTop smooth color="#6f00ff" className="bg-white shadow-lg fixed right-7 bottom-7 p-3 text-white z-50 cursor-pointer rounded-lg w-14 h-14 
+      transition ease-in-out duration-700 outline-none"/> */}
       <HeroSection content={heroSectionData} />
       <Portfolio contents={portfolioSectionData} />
       <CtaSection content={ctaData} />
       <BlogPost posts={posts} />
       <Contact content={contactInfo} />
-      <Footer />
+      <Footer socialLinks={socialLink} />
     </>
   )
 }
 export default index
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   try {
-    const res1 = await axios.get(ApiUrl + 'posts');
-    const res2 = await axios.get(ApiUrl + 'hero');
-    const res3 = await axios.get(ApiUrl + 'portfolios');
-    const res4 = await axios.get(ApiUrl + 'cta');
-    const res5 = await axios.get(ApiUrl + 'contact-info');
+    const res1 = await axios.get(ApiUrl + 'user/posts');
+    const res2 = await axios.get(ApiUrl + 'user/hero');
+    const res3 = await axios.get(ApiUrl + 'user/portfolios');
+    const res4 = await axios.get(ApiUrl + 'user/cta');
+    const res5 = await axios.get(ApiUrl + 'user/contact-info');
+    const res6 = await axios.get(ApiUrl + 'user/social-link');
+    const res7 = await axios.get(ApiUrl + 'user/seos');
     const posts = res1.data;
     const heroSectionData = res2.data;
     const portfolioSectionData = res3.data;
     const ctaData = res4.data;
     const contactInfo = res5.data;
+    const socialLink = res6.data;
+    const seoData = res7.data;
     return {
       props: {
         posts,
         heroSectionData,
         portfolioSectionData,
         ctaData,
-        contactInfo
+        contactInfo,
+        socialLink,
+        seoData
       },
     }
   } catch (error) {

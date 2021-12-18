@@ -1,40 +1,51 @@
 import axios from 'axios'
-import React from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
 import DashboardLayout from '../../components/dashboard/dashboard-layout'
 import Dashboard from '../../components/dashboard/dashboard-layout/DashboardPage'
 import { ApiUrl } from '../../config/ApiConfig'
+import { authRouteProtector } from '../../utils/routeProtection'
 
 const dashboard = ({ posts, portfolioSectionData }) => {
+    const [auth, setAuth] = useState(true)
+    const router = useRouter();
+    useEffect(() => {
+        (
+            async () => {
+                try {
+                    const response = await fetch('http://localhost:8000/api/user', {
+                        credentials: 'include',
+                    });
+                    await response.json();
+                } catch (e) {
+                    setAuth(false)
+                    router.push('/login')
+                }
+            }
+        )();
+    });
     return (
         <div>
-            <DashboardLayout>
-                <Dashboard posts={posts} portfolios={portfolioSectionData} />
-            </DashboardLayout>
-        </div>
+            {auth &&
+                <DashboardLayout>
+                    <Dashboard posts={posts} portfolios={portfolioSectionData} />
+                </DashboardLayout>
+            }
+        </div >
     )
 }
 export default dashboard
 
-export async function getStaticProps() {
-    try {
-        const res1 = await axios.get(ApiUrl + 'posts');
-        const res3 = await axios.get(ApiUrl + 'portfolios');
-        const res5 = await axios.get(ApiUrl + 'contact-info');
-        const posts = res1.data;
-        const portfolioSectionData = res3.data;
-        const contactInfo = res5.data;
-        return {
-            props: {
-                posts,
-                portfolioSectionData,
-                contactInfo
-            },
-        }
-    } catch (error) {
-        return {
-            props: {
-                error: '',
-            },
-        };
+export const getServerSideProps = authRouteProtector(async () => {
+    const res1 = await axios.get(ApiUrl + 'admin/posts');
+    const res2 = await axios.get(ApiUrl + 'admin/portfolios');
+    const res3 = await axios.get(ApiUrl + 'admin/contact-info');
+
+    return {
+        props: {
+            posts: res1.data,
+            portfolioSectionData: res2.data,
+            contactInfo: res3.data,
+        },
     }
-}
+})

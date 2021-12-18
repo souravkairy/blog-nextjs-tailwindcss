@@ -22,7 +22,7 @@ export default posts
 
 export async function getStaticProps() {
     try {
-        const res1 = await axios.get(ApiUrl + 'posts');
+        const res1 = await axios.get(ApiUrl + 'user/posts');
         const posts = res1.data;
         return {
             props: {

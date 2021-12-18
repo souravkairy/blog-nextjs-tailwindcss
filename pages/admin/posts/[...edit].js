@@ -16,7 +16,7 @@ export default Edit
 
 Edit.getInitialProps = async ({ query }) => {
     try {
-        const res = await axios.get(ApiUrl + `posts/${query.edit[1]}`);
+        const res = await axios.get(ApiUrl + `admin/posts/${query.edit[1]}`);
         const post = res.data;
         return {
             post,

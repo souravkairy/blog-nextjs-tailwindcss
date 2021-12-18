@@ -24,7 +24,7 @@ const index = ({ posts }) => {
 export default index
 export async function getStaticProps() {
     try {
-        const res = await axios.get(ApiUrl + 'posts');
+        const res = await axios.get(ApiUrl + 'user/posts');
         const posts = res.data;
         return {
             props: {

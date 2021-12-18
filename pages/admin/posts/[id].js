@@ -18,7 +18,7 @@ export default SinglePost
 
 SinglePost.getInitialProps = async ({ query }) => {
     try {
-        const res = await axios.get(ApiUrl + `posts/${query.id}`);
+        const res = await axios.get(ApiUrl + `admin/posts/${query.id}`);
         const post = res.data;
         return {
             post,

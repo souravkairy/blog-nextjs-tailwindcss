@@ -17,7 +17,7 @@ export default AllPost
 
 export async function getStaticProps() {
   try {
-    const res = await axios.get(ApiUrl + 'posts');
+    const res = await axios.get(ApiUrl + 'admin/posts');
     const posts = res.data;
     return {
       props: {

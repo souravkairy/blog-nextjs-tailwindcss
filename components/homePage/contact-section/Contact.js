@@ -16,7 +16,7 @@ const contact = ({ content }) => {
     const onSubmit = (data) => {
         const options = {
             method: 'POST',
-            url: ApiUrl + 'message',
+            url: ApiUrl + 'user/message',
             headers: { 'Content-Type': 'application/json' },
             data: data
         };
@@ -74,7 +74,7 @@ const contact = ({ content }) => {
                 </div>
                 <div className="bg-white py-10 px-5 sm:px-10 w-full md:w-1/2 my-2">
                     <div className="max-w-lg mx-auto lg:max-w-none">
-                        <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-y-6">
+                        <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-y-4">
                             <div>
                                 <label htmlFor="full-name" className="sr-only">
                                     Full name
@@ -83,7 +83,7 @@ const contact = ({ content }) => {
                                     type="text"
                                     id="full-name"
                                     autoComplete="name"
-                                    className="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="Name"
                                     {...register("name")}
                                 />
@@ -95,7 +95,7 @@ const contact = ({ content }) => {
                                 <input
                                     id="email"
                                     type="email"
-                                    className="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="Email"
                                     {...register("email", { required: true })}
                                 />
@@ -108,7 +108,7 @@ const contact = ({ content }) => {
                                 <input
                                     type="text"
                                     id="phone"
-                                    className="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="Phone"
                                     {...register("phone")}
                                 />
@@ -121,7 +121,7 @@ const contact = ({ content }) => {
                                     id="message"
                                     name="message"
                                     rows={4}
-                                    className="block w-full shadow-sm py-3 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
+                                    className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="Message"
                                     {...register("message", { required: true })}
                                 />
@@ -130,7 +130,7 @@ const contact = ({ content }) => {
                             <div>
                                 <button
                                     type="submit"
-                                    className="inline-flex justify-center py-3 px-6 border shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                    className="inline-flex justify-center py-1.5 px-6 border shadow-sm text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
                                 >
                                     Submit
                                 </button>

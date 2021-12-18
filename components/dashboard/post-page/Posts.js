@@ -19,7 +19,7 @@ const Posts = ({ posts }) => {
 
     }
     const deleteOperation = () => {
-        axios.delete(ApiUrl + 'posts/destory/' + postId)
+        axios.delete(ApiUrl + 'admin/posts/destory/' + postId)
             .then(res => res.data)
             .then(({ message, destory }) => {
                 toast.success(message)
@@ -27,7 +27,7 @@ const Posts = ({ posts }) => {
     }
     const handleChange = (id) => {
         console.log(id);
-        axios.get(ApiUrl + 'posts/update/status/' + id)
+        axios.get(ApiUrl + 'admin/posts/update/status/' + id)
             .then(res => res.data)
             .then(({ message, status }) => {
                 toast.success(message)
