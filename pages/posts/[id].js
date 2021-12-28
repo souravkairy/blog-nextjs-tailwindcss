@@ -9,15 +9,15 @@ const SinglePost = ({ post }) => {
     return (
         <>
             <NextSeo
-                title="sourav-kairy"
-                description="This example uses more of the available config options."
+                title={post?.meta_title}
+                description={post.meta_description}
                 canonical="https://rezahaque.me/"
                 openGraph={{
-                    url: 'https://www.url.ie/a',
-                    title: 'sourav',
-                    description: 'Open Graph Description',
-                    images: { url: 'https://www.example.ie/og-image-03.jpg' },
-                    site_name: 'SiteName',
+                    url: 'https://rezahaque.me/',
+                    title: `${post?.meta_title}`,
+                    description: `${post.meta_description}`,
+                    images: { url: `${post?.image_url}` },
+                    site_name: 'https://rezahaque.me/',
                 }}
                 twitter={{
                     handle: '@handle',
@@ -35,7 +35,7 @@ const SinglePost = ({ post }) => {
                     <div className="hidden lg:block bg-gray-50 absolute top-0 bottom-0 left-3/4 w-screen" />
                     <div className="mx-auto text-base max-w-prose lg:grid lg:grid-cols-2 lg:gap-8 lg:max-w-none">
                         <div>
-                            <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">Case Study</h2>
+                            {/* <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">Case Study</h2> */}
                             <h3 className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
                                 {post?.title}
                             </h3><br />

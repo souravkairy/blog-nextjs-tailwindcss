@@ -6,7 +6,7 @@ import Dashboard from '../../components/dashboard/dashboard-layout/DashboardPage
 import { ApiUrl } from '../../config/ApiConfig'
 import { authRouteProtector } from '../../utils/routeProtection'
 
-const dashboard = ({ posts, portfolioSectionData }) => {
+const dashboard = ({ posts, portfolioSectionData, messages }) => {
     const [auth, setAuth] = useState(true)
     const router = useRouter();
     useEffect(() => {
@@ -28,7 +28,7 @@ const dashboard = ({ posts, portfolioSectionData }) => {
         <div>
             {auth &&
                 <DashboardLayout>
-                    <Dashboard posts={posts} portfolios={portfolioSectionData} />
+                    <Dashboard posts={posts} portfolios={portfolioSectionData} messages={messages} />
                 </DashboardLayout>
             }
         </div >
@@ -39,13 +39,13 @@ export default dashboard
 export const getServerSideProps = authRouteProtector(async () => {
     const res1 = await axios.get(ApiUrl + 'admin/posts');
     const res2 = await axios.get(ApiUrl + 'admin/portfolios');
-    const res3 = await axios.get(ApiUrl + 'admin/contact-info');
+    const res3 = await axios.get(ApiUrl + 'admin/messages');
 
     return {
         props: {
             posts: res1.data,
             portfolioSectionData: res2.data,
-            contactInfo: res3.data,
+            messages: res3.data,
         },
     }
 })

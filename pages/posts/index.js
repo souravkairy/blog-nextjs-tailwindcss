@@ -3,7 +3,6 @@ import Header from '../../components/homePage/common-section/header'
 import Footer from '../../components/homePage/common-section/footer'
 import BlogPost from '../../components/homePage/posts/Posts'
 import axios from 'axios'
-import { NextSeo } from 'next-seo'
 
 const index = ({ posts }) => {
     return (

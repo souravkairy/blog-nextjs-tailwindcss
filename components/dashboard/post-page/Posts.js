@@ -1,6 +1,5 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { CheckIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 import SvgThumbsDownLight from '../../../public/icon-components/ThumbsDownLight'
 import SvgThumbsUpLight from '../../../public/icon-components/ThumbsUpLight'
@@ -12,16 +11,14 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Posts = ({ posts }) => {
+const Posts = ({ posts, onUpdate, onDelete }) => {
     const [open, setOpen] = useState(false)
     const [postId, setPostId] = useState('')
-    const fetchData = () => {
-
-    }
     const deleteOperation = () => {
         axios.delete(ApiUrl + 'admin/posts/destory/' + postId)
             .then(res => res.data)
-            .then(({ message, destory }) => {
+            .then(({ message, data }) => {
+                onDelete(data)
                 toast.success(message)
             })
     }
@@ -29,7 +26,8 @@ const Posts = ({ posts }) => {
         console.log(id);
         axios.get(ApiUrl + 'admin/posts/update/status/' + id)
             .then(res => res.data)
-            .then(({ message, status }) => {
+            .then(({ message, data }) => {
+                onUpdate(data)
                 toast.success(message)
             })
         // .catch(err => {

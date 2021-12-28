@@ -16,7 +16,7 @@ const contact = ({ content }) => {
     const onSubmit = (data) => {
         const options = {
             method: 'POST',
-            url: ApiUrl + 'user/message',
+            url: ApiUrl + 'user/messages',
             headers: { 'Content-Type': 'application/json' },
             data: data
         };
