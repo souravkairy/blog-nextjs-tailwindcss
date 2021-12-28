@@ -74,9 +74,9 @@ const SettingPage = ({ heroContent, seoContent, ctaContents, linkContents, onslC
     };
     const CtaDataSubmit = (data) => {
         const formData = new FormData();
-        formData.append('heading', data.heading);
-        formData.append('sub_heading', data.sub_heading);
-        formData.append('image', data.image[0]);
+        formData.append('heading', data.cta_heading);
+        formData.append('sub_heading', data.cta_sub_heading);
+        formData.append('image', data.cta_image[0]);
         axios.post(ApiUrl + 'admin/cta', formData, {
             headers: {
                 'Content-Type': `multipart/form-data`
@@ -405,7 +405,7 @@ const SettingPage = ({ heroContent, seoContent, ctaContents, linkContents, onslC
                 </div>
             </div>
             <hr />
-            {/* <div className="flex space-x-10 my-5">
+            <div className="flex space-x-10 my-5">
                 <div className="w-full md:w-1/2">
                     <h3 className="mb-3 text-lg font-semibold">Cta Section Setting</h3>
                     <div className="">
@@ -416,7 +416,7 @@ const SettingPage = ({ heroContent, seoContent, ctaContents, linkContents, onslC
                                     id="title"
                                     className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="Heading"
-                                    {...register("heading")}
+                                    {...register("cta_heading")}
                                 />
                             </div>
                             <div>
@@ -424,7 +424,7 @@ const SettingPage = ({ heroContent, seoContent, ctaContents, linkContents, onslC
                                     type="text"
                                     className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="Sub-Heading"
-                                    {...register("sub_heading")}
+                                    {...register("cta_sub_heading")}
                                 />
                             </div>
                             <div>
@@ -433,7 +433,7 @@ const SettingPage = ({ heroContent, seoContent, ctaContents, linkContents, onslC
                                     type="file"
                                     className="block w-full shadow-sm py-1.5 px-4 placeholder-gray-500 focus:ring-indigo-500 focus:border-indigo-500 border rounded-md"
                                     placeholder="Cta Image"
-                                    {...register("image")}
+                                    {...register("cta_image")}
                                 />
                             </div>
                             <div>
@@ -462,7 +462,7 @@ const SettingPage = ({ heroContent, seoContent, ctaContents, linkContents, onslC
                         </li>
                     </ul>
                 </div>
-            </div> */}
+            </div>
         </>
     )
 }
