@@ -14,15 +14,15 @@ const index = ({ posts, heroSectionData, portfolioSectionData, ctaData, contactI
   return (
     <>
       <NextSeo
-        title={seoData.meta_title}
-        description={seoData.meta_description}
-        canonical={seoData.canonical_link}
+        title={seoData?.meta_title}
+        description={seoData?.meta_description}
+        canonical={seoData?.canonical_link}
         openGraph={{
-          url: `${seoData.canonical_link}`,
-          title: `${seoData.meta_title}`,
-          description: `${seoData.meta_description}`,
-          images: { url: `${seoData.image_url}` },
-          site_name: `${seoData.site_name}`,
+          url: `${seoData?.canonical_link}`,
+          title: `${seoData?.meta_title}`,
+          description: `${seoData?.meta_description}`,
+          images: { url: `${seoData?.image_url}` },
+          site_name: `${seoData?.site_name}`,
         }}
       // twitter={{
       //   handle: '@handle',

@@ -11,7 +11,7 @@ const navigation = [
     { name: 'Contact', href: '#contact' },
 
 ]
-const header = () => {
+const Header = () => {
     const router = useRouter();
     const slug = router.pathname;
     return (
@@ -113,6 +113,6 @@ const header = () => {
     )
 }
 
-export default header
+export default Header
 
 

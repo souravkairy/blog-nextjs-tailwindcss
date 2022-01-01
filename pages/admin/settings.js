@@ -1,10 +1,10 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import DashboardPage from '../../components/dashboard/dashboard-layout'
+import DashboardPage from '../../components/dashboard/dashboard-layout/Index'
 import SettingPage from '../../components/dashboard/settings-page/SettingPage'
 import { ApiUrl } from '../../config/ApiConfig'
 
-const settings = ({ heroData, seoData, socialLinkData, ctaData }) => {
+const Setting = ({ heroData, seoData, socialLinkData, ctaData }) => {
     const [seo, setSeo] = useState(seoData);
     const [socialLink, setSocialLink] = useState(socialLinkData);
     const [heros, setHero] = useState(heroData);
@@ -17,7 +17,7 @@ const settings = ({ heroData, seoData, socialLinkData, ctaData }) => {
         </div>
     )
 }
-export default settings
+export default Setting
 
 export async function getServerSideProps() {
     try {

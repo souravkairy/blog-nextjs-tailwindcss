@@ -1,12 +1,12 @@
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
-import DashboardLayout from '../../components/dashboard/dashboard-layout'
-import Dashboard from '../../components/dashboard/dashboard-layout/DashboardPage'
+import DashboardLayout from '../../components/dashboard/dashboard-layout/Index'
+import DashboardPage from '../../components/dashboard/dashboard-layout/DashboardPage'
 import { ApiUrl } from '../../config/ApiConfig'
 import { authRouteProtector } from '../../utils/routeProtection'
 
-const dashboard = ({ posts, portfolioSectionData, messages }) => {
+const Dashboard = ({ posts, portfolioSectionData, messages }) => {
     const [auth, setAuth] = useState(true)
     const router = useRouter();
     useEffect(() => {
@@ -28,13 +28,13 @@ const dashboard = ({ posts, portfolioSectionData, messages }) => {
         <div>
             {auth &&
                 <DashboardLayout>
-                    <Dashboard posts={posts} portfolios={portfolioSectionData} messages={messages} />
+                    <DashboardPage posts={posts} portfolios={portfolioSectionData} messages={messages} />
                 </DashboardLayout>
             }
         </div >
     )
 }
-export default dashboard
+export default Dashboard
 
 export const getServerSideProps = authRouteProtector(async () => {
     const res1 = await axios.get(ApiUrl + 'admin/posts');

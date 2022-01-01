@@ -47,12 +47,12 @@ const EditPost = ({ content }) => {
                     </div>
                     <div className="">
                         <Link href="posts">
-                            <button
+                            <a
                                 type="button"
                                 className="px-4 py-1 shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 "
                             >
                                 All Post
-                            </button>
+                            </a>
                         </Link>
                     </div>
                 </div>

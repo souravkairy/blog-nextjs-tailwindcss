@@ -9,13 +9,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ApiUrl } from '../../../config/ApiConfig';
 import axios from 'axios';
 
-const Messages = ({ all_messages,onDelete }) => {
+const Messages = ({ all_messages, onDelete }) => {
     const [open, setOpen] = useState(false)
     const [id, setId] = useState('')
     const deleteOperation = () => {
         axios.delete(ApiUrl + 'admin/messages/' + id)
             .then(res => res.data)
-            .then(({ message,data }) => {
+            .then(({ message, data }) => {
                 onDelete(data)
                 toast.success(message)
             })
@@ -57,29 +57,27 @@ const Messages = ({ all_messages,onDelete }) => {
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
                                     {all_messages?.map((message) => (
-                                        <Link href="#" >
-                                            <tr key={message.id}>
-                                                <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className="text-sm text-gray-500">{message.name}</div>
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className="text-sm text-gray-500">{message.email}</div>
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className="text-sm text-gray-500">{message.message.substr(0, 60) + ' . . . . . . .'}</div>
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                                                    <Link href={'/admin/messages/' + message.id} >
-                                                        <button className="border p-1.5 rounded-lg hover:bg-gray-100 text-green-500 bg-green-100 border-green-200" title="View">
-                                                            <SvgEyeRegular />
-                                                        </button>
-                                                    </Link>
-                                                    <button onClick={() => { setOpen(true), setId(message.id) }} className="border p-1.5 rounded-lg hover:bg-gray-100 text-red-500 bg-red-100 border-red-200" title="Trash">
-                                                        <SvgTrashRegular />
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </Link>
+                                        <tr key={message.id}>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <div className="text-sm text-gray-500">{message.name}</div>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <div className="text-sm text-gray-500">{message.email}</div>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                <div className="text-sm text-gray-500">{message.message.substr(0, 60) + ' . . . . . . .'}</div>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                                                <Link href={'/admin/messages/' + message.id} >
+                                                    <a className="border p-1.5 rounded-lg hover:bg-gray-100 text-green-500 bg-green-100 border-green-200" title="View">
+                                                        <SvgEyeRegular />
+                                                    </a>
+                                                </Link>
+                                                <button onClick={() => { setOpen(true), setId(message.id) }} className="border p-1.5 rounded-lg hover:bg-gray-100 text-red-500 bg-red-100 border-red-200" title="Trash">
+                                                    <SvgTrashRegular />
+                                                </button>
+                                            </td>
+                                        </tr>
                                     ))}
                                 </tbody>
                             </table>

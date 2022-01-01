@@ -28,8 +28,8 @@ const AllPost = ({ posts }) => {
                             posts?.filter(function (post) {
                                 return post.status === 1;
                             }).slice(0, count).map((post) => (
-                                <Link href={'/posts/' + post.id} >
-                                    <div key={post.id} className="flex flex-col rounded-lg shadow-lg overflow-hidden cursor-pointer">
+                                <Link href={'/posts/' + post.id} key={post.id} >
+                                    <div className="flex flex-col rounded-lg shadow-lg overflow-hidden cursor-pointer">
                                         <div className="flex-shrink-0">
                                             <img className="h-48 w-full object-cover" src={post.image_url} alt="" />
                                         </div>

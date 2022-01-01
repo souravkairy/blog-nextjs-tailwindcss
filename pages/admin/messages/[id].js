@@ -4,10 +4,10 @@ import DashboardLayout from '../../../components/dashboard/dashboard-layout';
 import Message from '../../../components/dashboard/message-page/Message';
 import { ApiUrl } from '../../../config/ApiConfig';
 
-const singleMessage = ({ post }) => {
+const singleMessage = ({ messages }) => {
     return (
         <DashboardLayout>
-            <Message content={post} />
+            <Message content={messages} />
         </DashboardLayout>
     )
 }
@@ -15,9 +15,9 @@ export default singleMessage
 singleMessage.getInitialProps = async ({ query }) => {
     try {
         const res = await axios.get(ApiUrl + `admin/messages/${query.id}`);
-        const post = res.data;
+        const messages = res.data;
         return {
-            post,
+            messages,
         }
     } catch (error) {
         return {

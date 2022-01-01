@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ApiUrl } from '../../../config/ApiConfig';
 import axios from 'axios';
 
-const contact = ({ content }) => {
+const Contact = ({ content }) => {
     const {
         register,
         handleSubmit,
@@ -144,7 +144,7 @@ const contact = ({ content }) => {
     )
 }
 
-export default contact
+export default Contact
 
 
 

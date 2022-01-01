@@ -1,4 +1,4 @@
-import { CameraIcon } from '@heroicons/react/solid'
+import Image from 'next/image'
 import Header from '../../components/homePage/common-section/header'
 import Footer from '../../components/homePage/common-section/footer'
 import axios from 'axios';
@@ -70,12 +70,13 @@ const SinglePost = ({ post }) => {
                             <div className="relative text-base mx-auto max-w-prose lg:max-w-none">
                                 <figure>
                                     <div className="aspect-w-12 aspect-h-7 lg:aspect-none">
-                                        <img
-                                            className="rounded-lg shadow-lg object-cover object-center"
+                                        <Image
                                             src={post?.image_url}
-                                            alt="Whitney leaning against a railing on a downtown street"
-                                            width={1184}
-                                            height={1376}
+                                            alt="Post Image"
+                                            className="rounded-lg shadow-lg object-cover object-center"
+                                            width='1184'
+                                            height='1376'
+                                            objectFit='contain'
                                         />
                                     </div>
                                 </figure>

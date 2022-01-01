@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import Image from 'next/image'
 import axios from 'axios';
 import { ApiUrl } from "../../../config/ApiConfig";
 import { ToastContainer, toast } from 'react-toastify';
@@ -136,7 +137,14 @@ const PortfolioPage = ({ contents, onCreated, onDeleted }) => {
                                     </div>
                                     <p className="mt-1 text-gray-500 text-sm truncate">{data.sub_heading}</p>
                                 </div>
-                                <img className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0" src={data.image_url} alt="" />
+                                <Image
+                                    src={data.image_url}
+                                    alt="Portfolio Image"
+                                    className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0"
+                                    width='40'
+                                    height='40'
+                                    objectFit='contain'
+                                />
                             </div>
                         </li>
                     ))}

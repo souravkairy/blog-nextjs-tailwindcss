@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Message = ({content}) => {
+    console.log(content);
     return (
         <div className='border p-4 mx-auto max-w-3xl rounded-lg my-4'>
             <div className='space-y-2'>

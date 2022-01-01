@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import LoginPage from '../../components/loginPage/LoginPage'
 import { guestRouteProtector } from '../../utils/routeProtection'
 
-const index = () => {
+const Index = () => {
     const [token, setToken] = useState('')
     return (
         <div>
@@ -15,4 +15,4 @@ export const getServerSideProps = guestRouteProtector(async () => {
         props: {}
     }
 })
-export default index
+export default Index
