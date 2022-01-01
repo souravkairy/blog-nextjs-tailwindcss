@@ -1,10 +1,10 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import DashboardPage from '../../components/dashboard/dashboard-layout/Index'
+import DashboardPage from '../../components/dashboard/dashboard-layout'
 import SettingPage from '../../components/dashboard/settings-page/SettingPage'
 import { ApiUrl } from '../../config/ApiConfig'
 
-const Setting = ({ heroData, seoData, socialLinkData, ctaData }) => {
+const Setting = ({ heroData, seoData, socialLinkData, ctaData }) => { 
     const [seo, setSeo] = useState(seoData);
     const [socialLink, setSocialLink] = useState(socialLinkData);
     const [heros, setHero] = useState(heroData);
