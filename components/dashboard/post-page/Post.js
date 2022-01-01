@@ -11,6 +11,7 @@ const Post = ({ content }) => {
                 <p className='text-base'><strong className='font-semibold'>Meta Descriptions : </strong>{content.meta_description}</p>
             </div>
             <div>
+                
                 <img src={content.image_url} alt="" className='py-4' />
             </div>
             <div>
