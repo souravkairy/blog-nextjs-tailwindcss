@@ -3,7 +3,7 @@ module.exports = {
     apps: [
       {
         name: 'rezahaque.me',
-        cwd: ' /var/www/rezahaque.me/next/.next',
+        cwd: ' /var/www/rezahaque.me/next/',
         script: 'npm',
         args: 'start',
         env: {},
