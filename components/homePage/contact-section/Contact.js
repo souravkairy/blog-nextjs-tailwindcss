@@ -21,11 +21,11 @@ const Contact = ({ content }) => {
             data: data
         };
         axios.request(options).then(function (response) {
-            console.log(response.data);
             reset()
             toast.success("Message send successfully")
         }).catch(function (error) {
             console.error(error);
+            toast.warn("Something Wrong")
         });
     };
     return (
