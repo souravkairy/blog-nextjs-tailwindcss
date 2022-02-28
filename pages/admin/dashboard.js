@@ -26,11 +26,11 @@ const Dashboard = ({ posts, portfolioSectionData, messages }) => {
     // });
     return (
         <div>
-            {auth &&
+            {/* {auth && */}
                 <DashboardLayout>
                     <DashboardPage posts={posts} portfolios={portfolioSectionData} messages={messages} />
                 </DashboardLayout>
-            }
+            {/*  } */}
         </div >
     )
 }
