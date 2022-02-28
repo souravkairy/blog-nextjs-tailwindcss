@@ -9,21 +9,21 @@ import { authRouteProtector } from '../../utils/routeProtection'
 const Dashboard = ({ posts, portfolioSectionData, messages }) => {
     const [auth, setAuth] = useState(true)
     const router = useRouter();
-    useEffect(() => {
-        (
-            async () => {
-                try {
-                    const response = await fetch('http://localhost:8000/api/user', {
-                        credentials: 'include',
-                    });
-                    await response.json();
-                } catch (e) {
-                    setAuth(false)
-                    router.push('/login')
-                }
-            }
-        )();
-    });
+    // useEffect(() => {
+    //     (
+    //         async () => {
+    //             try {
+    //                 const response = await fetch(ApiUrl + 'user', {
+    //                     credentials: 'include',
+    //                 });
+    //                 await response.json();
+    //             } catch (e) {
+    //                 setAuth(false)
+    //                 router.push('/login')
+    //             }
+    //         }
+    //     )();
+    // });
     return (
         <div>
             {auth &&

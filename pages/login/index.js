@@ -4,6 +4,7 @@ import { guestRouteProtector } from '../../utils/routeProtection'
 
 const Index = () => {
     const [token, setToken] = useState('')
+    console.log(token);
     return (
         <div>
             <LoginPage setToken={setToken} />

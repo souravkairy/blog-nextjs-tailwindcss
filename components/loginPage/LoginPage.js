@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import { ApiUrl } from '../../config/ApiConfig';
 
 const LoginPage = ({ setToken }) => {
     const route = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const submit = async (e) => {
         e.preventDefault();
-        await fetch('http://localhost:8000/api/login', {
+        await fetch(ApiUrl + 'login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',

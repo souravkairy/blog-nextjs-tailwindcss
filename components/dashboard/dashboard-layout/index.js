@@ -9,6 +9,7 @@ import CogsSolid from '../../../public/icon-components/CogsSolid'
 import { SearchIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { ApiUrl } from '../../../config/ApiConfig'
 const navigation = [
     { name: 'Home', href: 'dashboard', icon: <HomeRegular />, current: true },
     { name: 'All Post', href: 'posts', icon: <ThListSolid />, current: false, },
@@ -29,7 +30,7 @@ const DashboardLayout = ({ children }) => {
     }, [routingSlug])
 
     const logout = async () => {
-        await fetch('http://localhost:8000/api/logout', {
+        await fetch(ApiUrl + 'logout', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',

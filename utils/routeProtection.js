@@ -1,5 +1,4 @@
 const guestRouteProtector = (serverSideProps) => {
-    console.log(serverSideProps);
     return async () => {
         const token = null;
 
@@ -16,7 +15,6 @@ const guestRouteProtector = (serverSideProps) => {
 }
 
 const authRouteProtector = (serverSideProps) => {
-    console.log(serverSideProps);
     return async () => {
         const token = 123;
 
