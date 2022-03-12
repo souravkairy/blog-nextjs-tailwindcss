@@ -30,7 +30,7 @@ const Header = () => {
                     <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
                         <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                             <div className="flex items-center justify-between w-full md:w-auto pb-3 sm:pb-0">
-                                <Link href="/">
+                                <Link href="/" passHref>
                                     <a>
                                         <span className="sr-only">Workflow</span>
                                         <span className="text-2xl font-semibold border p-2 rounded-lg">RH</span>

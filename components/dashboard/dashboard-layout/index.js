@@ -21,12 +21,18 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 const DashboardLayout = ({ children }) => {
+    const route = useRouter();
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [slug, setSlug] = useState('')
     const router = useRouter();
     const routingSlug = router.pathname;
     useEffect(() => {
         setSlug(routingSlug)
+        const token = localStorage.getItem('token')
+        if (token === null) {
+            route.push('/login');
+        }
+
     }, [routingSlug])
 
     const logout = async () => {
@@ -89,7 +95,7 @@ const DashboardLayout = ({ children }) => {
                                 <nav className="px-2">
                                     <div className="space-y-1">
                                         {navigation.map((item) => (
-                                            <Link href={item.href} key={item.name}>
+                                            <Link href={item.href} key={item.name} passHref>
                                                 <a
                                                     className={classNames(
                                                         '/admin/' + item.href === slug
@@ -129,7 +135,7 @@ const DashboardLayout = ({ children }) => {
                     <nav className="px-3 mt-6">
                         <div className="space-y-1">
                             {navigation.map((item) => (
-                                <Link href={item.href} key={item.name}>
+                                <Link href={item.href} key={item.name} passHref>
                                     <a
                                         key={item.name}
                                         className={classNames(
@@ -204,7 +210,7 @@ const DashboardLayout = ({ children }) => {
                         </div>
                         <div className="md:ml-4 flex">
                             <div className="mt-1 mr-3 text-gray-900">
-                                <Link href="/">
+                                <Link href="/" passHref>
                                     <a>
                                         <HomeRegular />
                                     </a>

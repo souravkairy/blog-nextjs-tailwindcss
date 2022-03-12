@@ -68,7 +68,7 @@ const Messages = ({ all_messages, onDelete }) => {
                                                 <div className="text-sm text-gray-500">{message.message.substr(0, 60) + ' . . . . . . .'}</div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                                                <Link href={'/admin/messages/' + message.id} >
+                                                <Link href={'/admin/messages/' + message.id} passHref>
                                                     <a className="border p-1.5 rounded-lg hover:bg-gray-100 text-green-500 bg-green-100 border-green-200" title="View">
                                                         <SvgEyeRegular />
                                                     </a>

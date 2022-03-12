@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { useForm } from "react-hook-form";
 import { ToastContainer, toast } from 'react-toastify';
@@ -17,7 +17,7 @@ const AddPostPage = () => {
     const [content, setContent] = useState('')
 
     const config = {
-        readonly: false 
+        readonly: false
     }
     const onSubmit = (data) => {
         console.log(data, ...content)
@@ -52,8 +52,8 @@ const AddPostPage = () => {
                         <h3 className="text-lg leading-6 font-medium text-gray-900">Add Post</h3>
                     </div>
                     <div className="">
-                        <Link href="posts">
-                            <a 
+                        <Link href="posts" passHref>
+                            <a
                                 className="px-4 py-1 shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 "
                             >
                                 All Post

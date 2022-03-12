@@ -46,7 +46,7 @@ const EditPost = ({ content }) => {
                         <h3 className="text-lg leading-6 font-medium text-gray-900">Edit Post</h3>
                     </div>
                     <div className="">
-                        <Link href="posts">
+                        <Link href="posts" passHref>
                             <a
                                 type="button"
                                 className="px-4 py-1 shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 "

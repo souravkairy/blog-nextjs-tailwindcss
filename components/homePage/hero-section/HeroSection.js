@@ -1,4 +1,5 @@
 import Header from "../common-section/header"
+import Image from "next/image"
 const heroSection = ({ content }) => {
     return (
         <div className="relative bg-white overflow-hidden">
@@ -18,7 +19,6 @@ const heroSection = ({ content }) => {
                                 <div className="rounded-md shadow">
                                     <a
                                         href={`mailto: ${content?.btn_link_one}`}
-                                        // href={content?.btn_link_one}
                                         className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-2 md:text-lg md:px-8"
                                     >
                                         Email Me
@@ -38,10 +38,9 @@ const heroSection = ({ content }) => {
                 </div>
             </div>
             <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-                {/* <Image src= {`http://127.0.0.1:8000/${content.image}`}
+                <Image src={content?.image_url}
                     className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" layout='fill'
-                /> */}
-                <img className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src={content?.image_url} alt="" />
+                />
             </div>
         </div>
     )

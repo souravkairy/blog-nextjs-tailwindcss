@@ -24,11 +24,6 @@ const index = ({ posts, heroSectionData, portfolioSectionData, ctaData, contactI
           images: { url: `${seoData?.image_url}` },
           site_name: `${seoData?.site_name}`,
         }}
-      // twitter={{
-      //   handle: '@handle',
-      //   site: '@site',
-      //   cardType: 'summary_large_image',
-      // }}
       />
       {/* <ScrollToTop smooth color="#6f00ff" className="bg-white shadow-lg fixed right-7 bottom-7 p-3 text-white z-50 cursor-pointer rounded-lg w-14 h-14 
       transition ease-in-out duration-700 outline-none"/> */}
