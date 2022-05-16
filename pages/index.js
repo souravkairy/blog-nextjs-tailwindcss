@@ -12,6 +12,7 @@ import axios from 'axios'
 
 // const index = ({ posts, heroSectionData, portfolioSectionData, ctaData, contactInfo, socialLink, seoData }) => {
 const index = ({ heroSectionData, portfolioSectionData, ctaData, contactInfo, socialLink, seoData }) => {
+  console.log(heroSectionData);
   return (
     <>
       <NextSeo
@@ -29,49 +30,57 @@ const index = ({ heroSectionData, portfolioSectionData, ctaData, contactInfo, so
       {/* <ScrollToTop smooth color="#6f00ff" className="bg-white shadow-lg fixed right-7 bottom-7 p-3 text-white z-50 cursor-pointer rounded-lg w-14 h-14 
       transition ease-in-out duration-700 outline-none"/> */}
       <HeroSection content={heroSectionData} />
-      <Portfolio contents={portfolioSectionData} />
-      <CtaSection content={ctaData} />
+      {/* <Portfolio contents={portfolioSectionData} />
+      <CtaSection content={ctaData} /> */}
       {/* <BlogPost posts={posts} /> */}
-      <Contact content={contactInfo} />
-      <Footer socialLinks={socialLink} />
-      <h1>Next Seo</h1>
+      {/* <Contact content={contactInfo} />
+      <Footer socialLinks={socialLink} /> */}
     </>
   )
 }
 export default index
 
 export async function getServerSideProps() {
-  try {
-    // const res1 = await axios.get(ApiUrl + 'user/posts');
-    const res2 = await axios.get(ApiUrl + 'user/hero');
-    const res3 = await axios.get(ApiUrl + 'user/portfolios');
-    const res4 = await axios.get(ApiUrl + 'user/cta');
-    const res5 = await axios.get(ApiUrl + 'user/contact-info');
-    const res6 = await axios.get(ApiUrl + 'user/social-link');
-    const res7 = await axios.get(ApiUrl + 'user/seos');
-    const posts = res1.data;
-    const heroSectionData = res2.data;
-    const portfolioSectionData = res3.data;
-    const ctaData = res4.data;
-    const contactInfo = res5.data;
-    const socialLink = res6.data;
-    const seoData = res7.data;
-    return {
-      props: {
-        posts,
-        heroSectionData,
-        portfolioSectionData,
-        ctaData,
-        contactInfo,
-        socialLink,
-        seoData
-      },
-    }
-  } catch (error) {
-    return {
-      props: {
-        error: '',
-      },
-    };
-  }
+
+  const res = await fetch(ApiUrl + 'user/hero')
+  const heroSectionData = await res.json()
+
+  // Pass data to the page via props
+  return { props: { heroSectionData } }
+
+
+
+  // try {
+  //   const res1 = await axios.get(ApiUrl + 'user/posts');
+  //   const res2 = await axios.get(ApiUrl + 'user/hero');
+  //   const res3 = await axios.get(ApiUrl + 'user/portfolios');
+  //   const res4 = await axios.get(ApiUrl + 'user/cta');
+  //   const res5 = await axios.get(ApiUrl + 'user/contact-info');
+  //   const res6 = await axios.get(ApiUrl + 'user/social-link');
+  //   const res7 = await axios.get(ApiUrl + 'user/seos');
+  //   const posts = res1.data;
+  //   const heroSectionData = res2.data;
+  //   const portfolioSectionData = res3.data;
+  //   const ctaData = res4.data;
+  //   const contactInfo = res5.data;
+  //   const socialLink = res6.data;
+  //   const seoData = res7.data;
+  //   return {
+  //     props: {
+  //       posts,
+  //       heroSectionData,
+  //       portfolioSectionData,
+  //       ctaData,
+  //       contactInfo,
+  //       socialLink,
+  //       seoData
+  //     },
+  //   }
+  // } catch (error) {
+  //   return {
+  //     props: {
+  //       error: '',
+  //     },
+  //   };
+  // }
 }
